@@ -41,8 +41,8 @@ export async function generateMetadata({ params }: Props) {
     if (!item) return {};
 
     const metaTitle = item.yoastTitle || `${item.title} | Beta Özel Servis`;
-    const rawDescription = item.yoastDescription || (('excerpt' in item ? item.excerpt : '') || '');
-    const metaDescription = rawDescription.replace(/<[^>]*>?/gm, '').substring(0, 160);
+    const rawDescription = item.yoastDescription || (post?.excerpt || '');
+    const metaDescription = String(rawDescription).replace(/<[^>]*>?/gm, '').substring(0, 160);
     const canonicalUrl = `https://betaozelservis.com/${slug}/`;
     const featuredImage = (item as any).thumbnail || 'https://betaozelservis.com/wp-content/uploads/2024/12/Bmw-Audi-Mercedes-Volkswagen-Servisi-Beta-Ozel-Servis-15.jpg';
 
@@ -141,12 +141,12 @@ export default async function DynamicRoutePage({ params }: Props) {
             "@type": "Organization",
             "name": "Beta Özel Servis"
         },
-        "description": (item.yoastDescription || (item as any).excerpt || '').replace(/<[^>]*>?/gm, '').substring(0, 160)
+        "description": String(item.yoastDescription || (post?.excerpt || '')).replace(/<[^>]*>?/gm, '').substring(0, 160)
     } : {
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": item.title,
-        "description": (item.yoastDescription || '').replace(/<[^>]*>?/gm, '').substring(0, 160)
+        "description": String(item.yoastDescription || '').replace(/<[^>]*>?/gm, '').substring(0, 160)
     };
 
     return (
