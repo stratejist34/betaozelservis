@@ -25,7 +25,7 @@ export default function FloatingActions() {
         // @ts-ignore
         if (typeof gtag !== 'undefined') {
             // @ts-ignore
-            gtag('event', 'floating_action_click', {
+            gtag('event', action === 'phone_call' ? 'usta_arama' : 'usta_whatsapp_hizli', {
                 action: action,
             });
         }

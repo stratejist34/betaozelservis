@@ -31,7 +31,7 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
         // @ts-ignore
         if (typeof gtag !== 'undefined') {
             // @ts-ignore
-            gtag('event', 'phone_click', {
+            gtag('event', 'usta_arama', {
                 phone_number: '05332081400',
                 click_location: 'header',
             });

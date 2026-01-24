@@ -14,8 +14,7 @@ export default function ScientificCTA({ variant = 'inline' }: ScientificCTAProps
         // @ts-ignore
         if (typeof gtag !== 'undefined') {
             // @ts-ignore
-            gtag('event', 'scientific_cta_click', {
-                action: action,
+            gtag('event', action === 'phone' ? 'scientific_cta_tel_click' : 'scientific_cta_whatsapp', {
                 variant: variant,
             });
         }

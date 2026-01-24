@@ -80,7 +80,7 @@ export default function HeroSection() {
                     <div className="flex flex-col sm:flex-row gap-6 justify-start">
                         <a
                             href="tel:+905332081400"
-                            onClick={() => trackCTA('phone_call')}
+                            onClick={() => trackCTA('hero_hemen_ara_tel')}
                             className="hidden sm:flex bg-brand-default hover:bg-brand-hover text-white px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all hover:scale-[1.05] active:scale-95 items-center justify-center gap-3 group animate-pulse-ring"
                         >
                             <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform" />
@@ -90,7 +90,7 @@ export default function HeroSection() {
                             href="https://wa.me/905332081400?text=Randevu almak istiyorum."
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={() => trackCTA('whatsapp_click')}
+                            onClick={() => trackCTA('hero_randevu_whatsapp')}
                             className="hidden sm:flex bg-charcoal-900 text-white hover:bg-black px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all shadow-xl hover:scale-[1.05] active:scale-95 items-center justify-center gap-3 group"
                         >
                             <MessageCircle className="w-5 h-5" />
@@ -129,7 +129,7 @@ export default function HeroSection() {
             <div className="sm:hidden px-5 pb-16 relative z-30 flex flex-col gap-4">
                 <a
                     href="tel:+905332081400"
-                    onClick={() => trackCTA('phone_call')}
+                    onClick={() => trackCTA('hero_hemen_ara_tel')}
                     className="w-full bg-brand-default text-white px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all shadow-xl flex items-center justify-center gap-3 group animate-pulse-ring"
                 >
                     <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform" />
@@ -139,7 +139,7 @@ export default function HeroSection() {
                     href="https://wa.me/905332081400?text=Randevu almak istiyorum."
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackCTA('whatsapp_click')}
+                    onClick={() => trackCTA('hero_randevu_whatsapp')}
                     className="w-full bg-transparent border border-white/20 text-white px-8 py-4 rounded-xl text-sm font-bold uppercase tracking-widest flex items-center justify-center gap-2 opacity-90"
                 >
                     <MessageCircle className="w-4 h-4" />
