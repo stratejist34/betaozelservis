@@ -21,8 +21,8 @@ export default function HeroSection() {
 
     return (
         <section className="relative px-0 pt-0 pb-0 overflow-hidden bg-charcoal-900 noise-overlay">
-            {/* Main Stage */}
-            <div ref={revealRef as any} className="relative min-h-[750px] lg:min-h-[900px] w-full flex items-center justify-center reveal overflow-hidden mx-auto">
+            {/* Main Stage - 100vh on mobile to anchor buttons at the bottom */}
+            <div ref={revealRef as any} className="relative h-[100dvh] sm:min-h-[750px] lg:min-h-[900px] w-full flex flex-col items-center justify-between reveal overflow-hidden mx-auto">
                 {/* Tech Grid Background - Darker for Light BG */}
                 <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
                     style={{
@@ -51,8 +51,8 @@ export default function HeroSection() {
                     <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-charcoal-900 to-transparent z-20" />
                 </div>
 
-                {/* Content - High Contrast Engineering Hierarchy - Shifted Up on Mobile */}
-                <div className="relative z-30 max-w-[1440px] w-full mx-auto px-5 lg:px-20 pt-8 pb-20 lg:py-32 text-left">
+                {/* Header-Aware Padding and Content - Shifted to Top */}
+                <div className="relative z-30 max-w-[1440px] w-full mx-auto px-5 lg:px-20 pt-24 sm:pt-48 pb-0 text-left">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-charcoal-900/40 backdrop-blur-sm mb-6 shadow-xl">
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-default opacity-75"></span>
@@ -63,7 +63,7 @@ export default function HeroSection() {
 
                     <h1 className="text-white text-4xl sm:text-7xl lg:text-8xl font-black !leading-[1.1] tracking-tighter mb-4 lg:mb-10">
                         <span className="hidden sm:inline text-charcoal-400">20 Yıldır<br /></span>
-                        <span className="text-charcoal-100 block sm:inline mt-2 sm:mt-0 drop-shadow-[0_2px_10px_rgba(255,255,255,0.1)]">Premium Araçlar için</span><br />
+                        <span className="text-charcoal-100 block sm:inline mt-1 sm:mt-0 drop-shadow-[0_2px_10px_rgba(255,255,255,0.1)]">Premium Araçlar için</span><br />
                         Özel Servis Hizmeti
                     </h1>
 
@@ -77,11 +77,11 @@ export default function HeroSection() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-6 justify-start">
+                    <div className="hidden sm:flex flex-col sm:flex-row gap-6 justify-start">
                         <a
                             href="tel:+905332081400"
                             onClick={() => trackCTA('hero_hemen_ara_tel')}
-                            className="hidden sm:flex bg-brand-default hover:bg-brand-hover text-white px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all hover:scale-[1.05] active:scale-95 items-center justify-center gap-3 group animate-pulse-ring"
+                            className="bg-brand-default hover:bg-brand-hover text-white px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all hover:scale-[1.05] active:scale-95 items-center justify-center gap-3 group animate-pulse-ring"
                         >
                             <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                             HEMEN ARA
@@ -91,7 +91,7 @@ export default function HeroSection() {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => trackCTA('hero_randevu_whatsapp')}
-                            className="hidden sm:flex bg-charcoal-900 text-white hover:bg-black px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all shadow-xl hover:scale-[1.05] active:scale-95 items-center justify-center gap-3 group"
+                            className="bg-charcoal-900 text-white hover:bg-black px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all shadow-xl hover:scale-[1.05] active:scale-95 items-center justify-center gap-3 group"
                         >
                             <MessageCircle className="w-5 h-5" />
                             RANDEVU AL
@@ -99,68 +99,43 @@ export default function HeroSection() {
                     </div>
                 </div>
 
-                {/* Technical Scroll Indicator */}
-                <div className="absolute bottom-32 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-3 z-30">
-                    <span className="text-[10px] font-black text-charcoal-900 tracking-[0.5em] uppercase animate-pulse">KEŞFET</span>
-                    <div className="w-[2px] h-16 bg-gradient-to-b from-brand-default via-brand-default/50 to-transparent animate-bounce" />
+                {/* Mobile Only: Decision Hierarchy CTAs - NOW ANCHORED AT BOTTOM OF 100dvh CONTAINER */}
+                <div className="sm:hidden w-full px-5 pb-8 relative z-30 flex flex-col gap-3">
+                    <a
+                        href="tel:+905332081400"
+                        onClick={() => trackCTA('hero_hemen_ara_tel')}
+                        className="w-full bg-brand-default text-white px-8 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all shadow-xl flex items-center justify-center gap-3 group animate-pulse-ring"
+                    >
+                        <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                        HEMEN ARA
+                    </a>
+                    <a
+                        href="https://wa.me/905332081400?text=Randevu almak istiyorum."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackCTA('hero_randevu_whatsapp')}
+                        className="w-full bg-charcoal-900/40 backdrop-blur-md border border-white/20 text-white px-8 py-5 rounded-xl text-base font-bold uppercase tracking-widest flex items-center justify-center gap-2"
+                    >
+                        <MessageCircle className="w-4 h-4" />
+                        RANDEVU AL
+                    </a>
                 </div>
 
-                {/* Technical Pointers (Large Screens Only) */}
-                <div className="absolute inset-0 pointer-events-none hidden lg:block z-20">
-                    {/* Pointer 1: Top Right */}
-                    <div className="absolute top-[20%] right-[10%] flex flex-col items-end opacity-40 hover:opacity-100 transition-opacity duration-700">
-                        <div className="flex items-center gap-2">
-                            <div className="h-[1px] w-24 bg-charcoal-400"></div>
-                            <div className="h-1.5 w-1.5 rounded-full bg-brand-default animate-pulse"></div>
-                        </div>
-                        <div className="text-[9px] font-mono text-charcoal-600 mt-1 mr-4 tracking-widest">DIAGNOSTIC</div>
+                {/* Brands Strip - Integrated into Hero Bottom */}
+                <div className="absolute bottom-8 left-0 right-0 z-30 flex flex-col items-center justify-center gap-6 hidden lg:flex">
+                    <h3 className="text-[10px] font-black text-charcoal-400/60 tracking-[0.3em] uppercase">// UZMANI OLDUĞUMUZ MARKALAR</h3>
+                    <div className="flex items-center gap-12 opacity-90 hover:opacity-100 transition-opacity duration-500">
+                        {brands.map((brand) => (
+                            <div key={brand.name} className="relative w-12 h-8 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all">
+                                <Image
+                                    src={brand.logo}
+                                    alt={brand.name}
+                                    fill
+                                    className="object-contain invert brightness-0 hover:filter-none transition-all"
+                                />
+                            </div>
+                        ))}
                     </div>
-
-                    {/* Pointer 2: Bottom Right Center */}
-                    <div className="absolute bottom-[30%] right-[25%] flex items-center gap-2 opacity-40 hover:opacity-100 transition-opacity duration-700">
-                        <div className="h-1.5 w-1.5 rounded-full bg-brand-default"></div>
-                        <div className="h-[1px] w-16 bg-charcoal-400"></div>
-                        <div className="text-[9px] font-mono text-charcoal-600 tracking-widest -ml-1">PERFORMANCE</div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Mobile Only: Decision Hierarchy CTAs */}
-            <div className="sm:hidden px-5 pb-16 relative z-30 flex flex-col gap-4">
-                <a
-                    href="tel:+905332081400"
-                    onClick={() => trackCTA('hero_hemen_ara_tel')}
-                    className="w-full bg-brand-default text-white px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all shadow-xl flex items-center justify-center gap-3 group animate-pulse-ring"
-                >
-                    <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                    HEMEN ARA
-                </a>
-                <a
-                    href="https://wa.me/905332081400?text=Randevu almak istiyorum."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackCTA('hero_randevu_whatsapp')}
-                    className="w-full bg-transparent border border-white/20 text-white px-8 py-4 rounded-xl text-sm font-bold uppercase tracking-widest flex items-center justify-center gap-2 opacity-90"
-                >
-                    <MessageCircle className="w-4 h-4" />
-                    RANDEVU AL
-                </a>
-            </div>
-
-            {/* Brands Strip - Integrated into Hero Bottom */}
-            <div className="absolute bottom-8 left-0 right-0 z-30 flex flex-col items-center justify-center gap-6 hidden lg:flex">
-                <h3 className="text-[10px] font-black text-charcoal-400/60 tracking-[0.3em] uppercase">// UZMANI OLDUĞUMUZ MARKALAR</h3>
-                <div className="flex items-center gap-12 opacity-90 hover:opacity-100 transition-opacity duration-500">
-                    {brands.map((brand) => (
-                        <div key={brand.name} className="relative w-12 h-8 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all">
-                            <Image
-                                src={brand.logo}
-                                alt={brand.name}
-                                fill
-                                className="object-contain invert brightness-0 hover:filter-none transition-all"
-                            />
-                        </div>
-                    ))}
                 </div>
             </div>
         </section>
