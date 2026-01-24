@@ -83,16 +83,19 @@ export default async function DynamicRoutePage({ params }: Props) {
     const { slug } = await params;
     const [post, page] = await Promise.all([getPostBySlug(slug), getPageBySlug(slug)]);
 
-    if (!post && !page) {
-        notFound();
-    }
-
     const item = post || page;
     const isPost = !!post;
 
+    if (!item) {
+        notFound();
+    }
+
+    // Guaranteed to exist after notFound()
+    const safeItem = item!;
+
     // Process content: 
     // 1. Convert any manual H1 to H2 to preserve hierarchy without duplicating the hero H1
-    const contentWithH2 = (item.content || '').replace(/<h1([^>]*)>(.*?)<\/h1>/gi, '<h2$1>$2</h2>');
+    const contentWithH2 = (safeItem.content || '').replace(/<h1([^>]*)>(.*?)<\/h1>/gi, '<h2$1>$2</h2>');
 
     // 2. Remove the first H2 specifically (as it typically repeats the main title)
     let firstH2Removed = false;
@@ -134,19 +137,19 @@ export default async function DynamicRoutePage({ params }: Props) {
     const jsonLd = isPost ? {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": item.title,
-        "image": [(item as any).thumbnail || 'https://betaozelservis.com/wp-content/uploads/2024/12/Bmw-Audi-Mercedes-Volkswagen-Servisi-Beta-Ozel-Servis-15.jpg'],
-        "datePublished": (item as any).date || '',
+        "headline": safeItem.title,
+        "image": [(safeItem as any).thumbnail || 'https://betaozelservis.com/wp-content/uploads/2024/12/Bmw-Audi-Mercedes-Volkswagen-Servisi-Beta-Ozel-Servis-15.jpg'],
+        "datePublished": (safeItem as any).date || '',
         "author": {
             "@type": "Organization",
             "name": "Beta Özel Servis"
         },
-        "description": String(item.yoastDescription || (post?.excerpt || '')).replace(/<[^>]*>?/gm, '').substring(0, 160)
+        "description": String(safeItem.yoastDescription || (post?.excerpt || '')).replace(/<[^>]*>?/gm, '').substring(0, 160)
     } : {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "name": item.title,
-        "description": String(item.yoastDescription || '').replace(/<[^>]*>?/gm, '').substring(0, 160)
+        "name": safeItem.title,
+        "description": String(safeItem.yoastDescription || '').replace(/<[^>]*>?/gm, '').substring(0, 160)
     };
 
     return (
@@ -168,11 +171,11 @@ export default async function DynamicRoutePage({ params }: Props) {
                             <nav className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-gray-500/60 mb-3 sm:mb-4 animate-fade-in">
                                 <span>{isPost ? 'Uzman Rehberİ' : 'Bİlgİ Merkezİ'}</span>
                                 <span className="text-gray-300">/</span>
-                                <span className="text-brand-default truncate max-w-[200px] sm:max-w-none">{item.title}</span>
+                                <span className="text-brand-default truncate max-w-[200px] sm:max-w-none">{safeItem.title}</span>
                             </nav>
 
                             <h1 className="text-2xl sm:text-5xl font-black text-gray-900 leading-[1.1] tracking-tight mb-3 sm:mb-4 italic">
-                                {item.title}
+                                {safeItem.title}
                             </h1>
 
                             {/* Minimal Update Date */}
@@ -193,11 +196,11 @@ export default async function DynamicRoutePage({ params }: Props) {
                             {tocItems.length > 0 && <TableOfContents items={tocItems} variant="mobile" />}
 
                             {/* Featured Image */}
-                            {((isPost && post?.thumbnail) || (item as any).thumbnail) && (
+                            {((isPost && post?.thumbnail) || (safeItem as any).thumbnail) && (
                                 <div className="relative h-[240px] sm:h-[480px] w-full rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl mb-6 sm:mb-10">
                                     <Image
-                                        src={(item as any).thumbnail || '/wp-content/uploads/2024/12/Bmw-Audi-Mercedes-Volkswagen-Servisi-Beta-Ozel-Servis-15.jpg'}
-                                        alt={item.title}
+                                        src={(safeItem as any).thumbnail || '/wp-content/uploads/2024/12/Bmw-Audi-Mercedes-Volkswagen-Servisi-Beta-Ozel-Servis-15.jpg'}
+                                        alt={safeItem.title}
                                         fill
                                         className="object-cover"
                                         priority
