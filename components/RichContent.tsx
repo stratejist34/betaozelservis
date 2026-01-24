@@ -37,7 +37,7 @@ export default function RichContent({ content, className }: RichContentProps) {
 
                         return (
                             <div
-                                className="group relative w-full my-8 sm:my-12 rounded-[1.5rem] overflow-hidden cursor-zoom-in transition-all duration-500 shadow-sm hover:shadow-md border border-gray-200/60 bg-white"
+                                className="group relative w-full my-6 sm:my-12 rounded-[1.5rem] overflow-hidden cursor-zoom-in transition-all duration-500 shadow-sm hover:shadow-md border border-gray-200/60 bg-white"
                                 onClick={() => setLightboxSrc(src)}
                             >
                                 {/* Platinum Border Overlay - Fixed 1px Metallic Feel */}
@@ -68,6 +68,17 @@ export default function RichContent({ content, className }: RichContentProps) {
                             <span className="w-6 h-1 bg-brand-default rounded-full" />
                             {domToReact(domNode.children as any, options)}
                         </h2>
+                    );
+                }
+
+                // 3. Responsive Table Wrapper (Fixes Mobile Overflow & Header Shift)
+                if (domNode.name === 'table') {
+                    return (
+                        <div className="w-full overflow-x-auto my-8 rounded-2xl border border-gray-100 scrollbar-hide shadow-inner bg-white/50">
+                            <table className="min-w-full divide-y divide-gray-100 table-auto">
+                                {domToReact(domNode.children as any, options)}
+                            </table>
+                        </div>
                     );
                 }
             }
