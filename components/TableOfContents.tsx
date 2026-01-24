@@ -60,10 +60,10 @@ export default function TableOfContents({ items, variant = 'all' }: TableOfConte
         <>
             {/* Mobile Header Button */}
             {(variant === 'mobile' || variant === 'all') && (
-                <div className="lg:hidden mb-4">
+                <div className="lg:hidden mb-1">
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="w-full flex items-center justify-between p-4 bg-charcoal-50 rounded-2xl border border-charcoal-100 text-charcoal-900 font-bold uppercase tracking-wider text-xs"
+                        className="w-full flex items-center justify-between p-3 bg-charcoal-50 rounded-2xl border border-charcoal-100 text-charcoal-900 font-bold uppercase tracking-wider text-[10px]"
                     >
                         <div className="flex items-center gap-2">
                             <List className="w-4 h-4 text-brand-default" />

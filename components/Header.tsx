@@ -39,8 +39,8 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
     };
 
     return (
-        <header className="fixed inset-x-0 top-0 z-50 transition-all duration-300">
-            <nav className={`w-full h-20 transition-all duration-300 ${showGlass
+        <header className="fixed inset-x-0 top-0 z-50 transition-all duration-300 h-16 sm:h-20">
+            <nav className={`w-full h-full transition-all duration-300 ${showGlass
                 ? 'bg-gradient-to-b from-[#F2F4F7] via-[#FFFFFF] to-[#E2E5E9] border-b border-black/10 shadow-lg'
                 : 'bg-transparent'}`} aria-label="Global">
                 {/* Metallic Sheen Accent */}
@@ -93,14 +93,13 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
                         </a>
                     </div>
 
-                    {/* Mobile Menu Button - Right */}
                     <div className="flex lg:hidden items-center ml-auto">
                         <button
                             type="button"
-                            className={`p-2 transition-all ${isDarkText ? 'text-gray-900' : 'text-white'}`}
+                            className={`p-2 transition-all ${isDarkText ? 'text-charcoal-900' : 'text-white'}`}
                             onClick={() => setMobileMenuOpen(true)}
                         >
-                            <Menu className="h-6 w-6" />
+                            <Menu className="h-6 w-6 stroke-[3]" />
                         </button>
                     </div>
                 </div>

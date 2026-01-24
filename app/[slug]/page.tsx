@@ -164,31 +164,19 @@ export default async function DynamicRoutePage({ params }: Props) {
 
             <article className="flex-grow">
                 {/* Hero Section - Silver Gradient Background to integrate header */}
-                <header className="pt-24 sm:pt-32 pb-8 sm:pb-12 border-b border-gray-200/50 bg-gradient-to-b from-gray-100 to-white">
+                <header className="pt-20 sm:pt-32 pb-4 sm:pb-12 border-b border-gray-200/50 bg-gradient-to-b from-gray-100 to-white">
                     <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="max-w-4xl mx-auto">
-                            {/* Passive Breadcrumb */}
-                            <nav className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-gray-500/60 mb-3 sm:mb-4 animate-fade-in">
-                                <span>{isPost ? 'Uzman Rehberİ' : 'Bİlgİ Merkezİ'}</span>
-                                <span className="text-gray-300">/</span>
-                                <span className="text-brand-default truncate max-w-[200px] sm:max-w-none">{safeItem.title}</span>
-                            </nav>
 
                             <h1 className="text-2xl sm:text-5xl font-black text-gray-900 leading-[1.1] tracking-tight mb-3 sm:mb-4 italic">
                                 {safeItem.title}
                             </h1>
 
-                            {/* Minimal Update Date */}
-                            {isPost && post && (
-                                <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest opacity-60">
-                                    Son Güncelleme: {format(new Date(post.date), 'MMMM yyyy', { locale: tr })}
-                                </div>
-                            )}
                         </div>
                     </div>
                 </header>
 
-                <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
+                <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 sm:gap-16">
                         {/* Left Content Area */}
                         <div className="lg:col-span-8">
@@ -197,7 +185,7 @@ export default async function DynamicRoutePage({ params }: Props) {
 
                             {/* Featured Image */}
                             {((isPost && post?.thumbnail) || (safeItem as any).thumbnail) && (
-                                <div className="relative h-[240px] sm:h-[480px] w-full rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl mb-6 sm:mb-10">
+                                <div className="relative h-[240px] sm:h-[480px] w-full rounded-2xl sm:rounded-[2.5rem] overflow-hidden shadow-2xl mb-4 sm:mb-8">
                                     <Image
                                         src={(safeItem as any).thumbnail || '/wp-content/uploads/2024/12/Bmw-Audi-Mercedes-Volkswagen-Servisi-Beta-Ozel-Servis-15.jpg'}
                                         alt={safeItem.title}
@@ -239,6 +227,13 @@ export default async function DynamicRoutePage({ params }: Props) {
 
                             {/* Strong CTA 2 (End) */}
                             <ScientificCTA variant="bottom" />
+
+                            {/* Minimal Update Date - Relocated to footer */}
+                            {isPost && post && (
+                                <div className="mt-8 text-[10px] font-bold text-gray-400 uppercase tracking-widest opacity-60 text-center">
+                                    Son Güncelleme: {format(new Date(post.date), 'MMMM yyyy', { locale: tr })}
+                                </div>
+                            )}
 
                             {/* Tags */}
                             {isPost && post && post.tags && post.tags.length > 0 && (
