@@ -22,7 +22,7 @@ export default function HeroSection() {
     return (
         <section className="relative px-0 pt-0 pb-0 overflow-hidden bg-charcoal-900 noise-overlay">
             {/* Main Stage */}
-            <div ref={revealRef as any} className="relative min-h-[700px] lg:min-h-[900px] w-full flex items-center justify-center reveal overflow-hidden mx-auto">
+            <div ref={revealRef as any} className="relative min-h-[600px] lg:min-h-[900px] w-full flex items-center justify-center reveal overflow-hidden mx-auto">
                 {/* Tech Grid Background - Darker for Light BG */}
                 <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
                     style={{
@@ -52,7 +52,7 @@ export default function HeroSection() {
                 </div>
 
                 {/* Content - High Contrast Engineering Hierarchy */}
-                <div className="relative z-30 max-w-[1440px] w-full mx-auto px-5 lg:px-20 py-20 lg:py-32 text-left">
+                <div className="relative z-30 max-w-[1440px] w-full mx-auto px-5 lg:px-20 py-12 lg:py-32 text-left">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-charcoal-900/40 backdrop-blur-sm mb-6 shadow-xl">
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-default opacity-75"></span>
@@ -61,7 +61,7 @@ export default function HeroSection() {
                         <span className="text-[10px] font-bold text-charcoal-100 tracking-widest uppercase">System Status: Online</span>
                     </div>
 
-                    <h1 className="text-white text-4xl sm:text-7xl lg:text-8xl font-black !leading-[1.1] tracking-tighter mb-10">
+                    <h1 className="text-white text-4xl sm:text-7xl lg:text-8xl font-black !leading-[1.1] tracking-tighter mb-6 lg:mb-10">
                         <span className="hidden sm:inline text-charcoal-400">20 Yıldır<br /></span>
                         <span className="text-charcoal-100 block sm:inline mt-2 sm:mt-0 drop-shadow-[0_2px_10px_rgba(255,255,255,0.1)]">Premium Araçlara</span><br />
                         Özel Servis
