@@ -81,7 +81,7 @@ export default function HeroSection() {
                         <a
                             href="tel:+905332081400"
                             onClick={() => trackCTA('hero_hemen_ara_tel')}
-                            className="bg-brand-default hover:bg-brand-hover text-white px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all hover:scale-[1.05] active:scale-95 items-center justify-center gap-3 group animate-pulse-ring"
+                            className="flex bg-brand-default hover:bg-brand-hover text-white px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all hover:scale-[1.05] active:scale-95 items-center justify-center gap-3 group animate-pulse-ring"
                         >
                             <Phone className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                             HEMEN ARA
@@ -91,7 +91,7 @@ export default function HeroSection() {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => trackCTA('hero_randevu_whatsapp')}
-                            className="bg-charcoal-900 text-white hover:bg-black px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all shadow-xl hover:scale-[1.05] active:scale-95 items-center justify-center gap-3 group"
+                            className="flex bg-charcoal-900 text-white hover:bg-black px-12 py-5 rounded-xl text-base font-black uppercase tracking-widest transition-all shadow-xl hover:scale-[1.05] active:scale-95 items-center justify-center gap-3 group"
                         >
                             <MessageCircle className="w-5 h-5" />
                             RANDEVU AL
