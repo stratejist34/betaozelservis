@@ -123,8 +123,8 @@ export default function BatteryQuickSelector() {
                         </button>
                     </div>
 
-                    {/* Quick Selection Buttons - Optimized for Mobile Thumb Zone */}
-                    <div className="flex flex-row sm:grid sm:grid-cols-3 gap-3 sm:gap-6 relative z-10 mb-10 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0 scrollbar-hide">
+                    {/* Quick Selection Buttons - Forced Grid to fit all mobile screens */}
+                    <div className="grid grid-cols-3 gap-1.5 sm:gap-6 relative z-10 mb-10 pb-0">
                         {[
                             { id: 'yes', label: 'VAR', desc: 'START-STOP', color: 'border-white/5' },
                             { id: 'no', label: 'YOK', desc: 'KLASİK', color: 'border-white/5' },
@@ -133,15 +133,15 @@ export default function BatteryQuickSelector() {
                             <button
                                 key={opt.id}
                                 onClick={() => handleSelection(opt.id)}
-                                className={`flex-1 min-w-[100px] group relative p-4 sm:p-8 rounded-2xl sm:rounded-[2rem] border-2 transition-all text-center flex flex-col items-center justify-center gap-1 ${selection === opt.id
-                                    ? 'bg-brand-default/20 border-brand-default shadow-[0_0_30px_rgba(198,31,58,0.2)]'
+                                className={`flex-1 min-w-0 group relative p-1.5 sm:p-8 rounded-lg sm:rounded-[2rem] border transition-all text-center flex flex-col items-center justify-center gap-0.5 sm:gap-1 ${selection === opt.id
+                                    ? 'bg-brand-default/20 border-brand-default shadow-[0_0_15px_rgba(198,31,58,0.2)]'
                                     : `${opt.color} bg-white/5 hover:border-white/30 hover:bg-white/10`
                                     }`}
                             >
-                                <span className={`text-[11px] sm:text-sm font-black tracking-[0.1em] sm:tracking-[0.2em] ${selection === opt.id ? 'text-white' : 'text-charcoal-100'}`}>
+                                <span className={`text-[8px] sm:text-sm font-black tracking-tighter sm:tracking-[0.2em] leading-tight ${selection === opt.id ? 'text-white' : 'text-charcoal-100'}`}>
                                     {opt.label}
                                 </span>
-                                <span className={`text-[8px] sm:text-[9px] font-black uppercase tracking-widest ${selection === opt.id ? 'text-brand-default' : 'text-charcoal-400'}`}>
+                                <span className={`text-[6px] sm:text-[9px] font-black uppercase tracking-tighter sm:tracking-widest opacity-70 ${selection === opt.id ? 'text-brand-default' : 'text-charcoal-400'}`}>
                                     {opt.desc}
                                 </span>
                             </button>

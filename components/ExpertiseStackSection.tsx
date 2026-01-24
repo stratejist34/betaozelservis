@@ -59,7 +59,7 @@ const cards = [
 export default function ExpertiseStackSection() {
     return (
         <section
-            className="relative bg-charcoal-50 py-32"
+            className="relative bg-charcoal-50 pt-32 pb-64"
             id="brand-stacked"
         >
             {/* Section Header */}
@@ -72,78 +72,83 @@ export default function ExpertiseStackSection() {
                 </h2>
             </div>
 
-            {/* Grid Cards Container */}
-            <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            {/* STICKY STAGGERED CARDS CONTAINER */}
+            <div className="container mx-auto px-4 relative max-w-6xl">
                 {cards.map((card, index) => {
                     return (
                         <div
                             key={card.id}
-                            className="group relative rounded-[2.5rem] lg:rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl transition-all duration-700 hover:-translate-y-2"
+                            className={cn(
+                                "sticky mb-24 lg:mb-48 last:mb-0 transition-all duration-700",
+                                card.color
+                            )}
+                            style={{
+                                // Proper Sticky Offset for "Stacking" Effect
+                                top: `calc(10vh + ${index * 8}px)`,
+                                zIndex: index + 10
+                            }}
                         >
+                            <div className={cn(
+                                "group relative rounded-[2.5rem] lg:rounded-[4rem] overflow-hidden border border-white/5 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)] hover:shadow-brand-default/10 transition-shadow",
+                                card.color
+                            )}>
+                                {/* CONTENT WRAPPER */}
+                                <div className="relative flex flex-col lg:flex-row min-h-[500px] lg:min-h-[600px]">
 
-                            {/* Content Container */}
-                            <div className="relative min-h-[400px] flex flex-col">
-
-                                {/* Text Content */}
-                                <div className="w-full p-8 lg:p-10 flex flex-col justify-between relative z-20 flex-grow">
-                                    <div className="flex items-start justify-between mb-6">
-                                        <span className="text-5xl lg:text-7xl font-black text-white/5 leading-none tracking-tighter select-none">
-                                            {card.id}
-                                        </span>
-                                    </div>
-
-                                    <div className="mt-8 lg:mt-0">
-                                        <h3 className="text-3xl lg:text-5xl text-white mb-4 font-black tracking-widest leading-tight uppercase">
-                                            {card.title}
-                                        </h3>
-                                        <p className="text-white text-sm lg:text-base font-bold tracking-[0.3em] mb-8 uppercase drop-shadow-sm">
-                                            {card.slogan}
-                                        </p>
-                                        <p className="text-slate-400 text-lg leading-relaxed max-w-md mb-10 font-medium">
-                                            {card.description}
-                                        </p>
-
-                                        {/* CTA Button with Final Hover Recipe */}
-                                        <button
-                                            className={cn(
-                                                "inline-flex items-center gap-4 group/btn cursor-pointer bg-charcoal-900/40 hover:bg-brand-default px-8 py-3.5 rounded-2xl transition-all duration-300 backdrop-blur-xl border border-white/10 hover:border-brand-default opacity-80 hover:opacity-100",
-                                                // Micro-movement: -1px lift
-                                                "hover:-translate-y-[1px]"
-                                            )}
-                                        >
-                                            <span className={cn(
-                                                "text-white font-bold tracking-widest text-[10px] uppercase transition-all duration-300"
-                                            )}>
-                                                {card.ctaText}
+                                    {/* TEXT CONTENT - TOP ON MOBILE / LEFT ON DESKTOP */}
+                                    <div className="w-full lg:w-1/2 p-8 lg:p-16 flex flex-col justify-between relative z-20">
+                                        <div className="relative">
+                                            <span className="text-8xl lg:text-9xl font-black text-white/5 leading-none tracking-tighter select-none absolute -top-10 -left-6">
+                                                {card.id}
                                             </span>
-                                            <ArrowRight className="w-4 h-4 text-white transform group-hover/btn:translate-x-1 transition-all duration-200 ease-out" strokeWidth={3} />
-                                        </button>
+
+                                            <div className="relative mt-10">
+                                                <h3 className="text-3xl lg:text-6xl text-white mb-4 font-black tracking-widest leading-tight uppercase">
+                                                    {card.title}
+                                                </h3>
+                                                <p className={cn("text-xs lg:text-sm font-black tracking-[0.3em] mb-8 uppercase", card.accent)}>
+                                                    {card.slogan}
+                                                </p>
+                                                <p className="text-slate-400 text-base lg:text-xl leading-relaxed max-w-md mb-8 font-medium">
+                                                    {card.description}
+                                                </p>
+
+                                                <button className="flex items-center gap-4 bg-white/5 hover:bg-white/10 border border-white/10 px-8 py-4 rounded-2xl transition-all group/btn w-fit shadow-xl">
+                                                    <span className="text-white font-black tracking-widest text-[10px] uppercase">
+                                                        {card.ctaText}
+                                                    </span>
+                                                    <ArrowRight className="w-4 h-4 text-white transform group-hover/btn:translate-x-2 transition-transform" />
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Image Side - Simplified for Grid */}
-                                <div className="relative h-48 lg:h-64 mt-auto">
-                                    <Image
-                                        src={card.image}
-                                        alt={card.title}
-                                        fill
-                                        className="object-cover opacity-60"
-                                        quality={60}
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-charcoal-900/60 to-transparent z-10" />
+                                    {/* IMAGE CONTENT - BOTTOM ON MOBILE / RIGHT ON DESKTOP */}
+                                    <div className="relative h-[300px] lg:h-auto lg:w-1/2 overflow-hidden border-t lg:border-t-0 lg:border-l border-white/5">
+                                        <Image
+                                            src={card.image}
+                                            alt={card.title}
+                                            fill
+                                            className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
+                                            quality={90}
+                                        />
+                                        {/* Premium Scrims */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent lg:bg-gradient-to-l z-10" />
 
-                                    <div className={cn(
-                                        "absolute bottom-6 right-6 w-12 h-12 bg-white/5 backdrop-blur-md rounded-2xl p-3 flex items-center justify-center border border-white/5 z-30",
-                                        card.accent
-                                    )}>
-                                        <card.icon className="w-full h-full opacity-80" strokeWidth={1} />
+                                        <div className={cn(
+                                            "absolute bottom-8 right-8 w-16 h-16 bg-black/40 backdrop-blur-xl rounded-2xl p-4 flex items-center justify-center border border-white/10 z-30 shadow-2xl transition-transform group-hover:scale-110",
+                                            card.accent
+                                        )}>
+                                            <card.icon className="w-full h-full" strokeWidth={1} />
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
-                </div>
-        </div>
-        </section >
+                    );
+                })}
+            </div>
+        </section>
     );
 }
