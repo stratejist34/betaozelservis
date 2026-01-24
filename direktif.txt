@@ -1,0 +1,514 @@
+# Beta Özel Servis - Next.js Teknik Şartname
+
+## Proje Özeti
+- **Mevcut:** WordPress site (Günlük 200-270 ziyaretçi)
+- **Hedef:** Next.js 15 (App Router) production-ready site
+- **Tek deployment:** Tüm özellikler eksiksiz çalışır durumda
+
+---
+
+## 1. LIGHTHOUSE & PERFORMANS HEDEFLERİ
+
+### Lighthouse Skorları
+- **Performance:** 100/100
+- **Accessibility:** 100/100
+- **Best Practices:** 100/100
+- **SEO:** 100/100
+
+### Core Web Vitals Hedefleri
+- **LCP (Largest Contentful Paint):** <1.5s (ideal: <1.2s)
+- **FID (First Input Delay):** <50ms (ideal: <30ms)
+- **CLS (Cumulative Layout Shift):** <0.05 (ideal: <0.01)
+- **INP (Interaction to Next Paint):** <100ms (ideal: <50ms)
+- **TTFB (Time to First Byte):** <200ms
+- **FCP (First Contentful Paint):** <1.0s
+
+### Performans Metrikleri
+- **Total Blocking Time (TBT):** <100ms
+- **Speed Index:** <2.0s
+- **Bundle Size (First Load JS):** <80KB (gzipped)
+- **Image Optimization:** WebP + AVIF, lazy loading
+- **Font Loading:** FOUT/FOIT yok, variable font kullanımı
+
+---
+
+## 2. TEKNİK STACK
+
+### Framework & Runtime
+- **Next.js:** 15.1.x (App Router zorunlu)
+- **React:** 19.x
+- **Node.js:** 20.x LTS
+- **TypeScript:** 5.3.x
+
+### Styling
+- **Tailwind CSS:** 3.4.x
+- **CSS Modules:** Kritik component'ler için
+- **PostCSS:** Autoprefixer, cssnano
+
+### Image & Media
+- **next/image:** WebP + AVIF generation
+- **sharp:** Image processing
+- **plaiceholder:** Blur placeholder generation
+- **@vercel/og:** Dynamic OG image generation (optional)
+
+### SEO & Analytics
+- **next-sitemap:** Otomatik sitemap.xml generation
+- **schema-dts:** TypeScript ile JSON-LD schemas
+- **@vercel/analytics:** Core Web Vitals tracking
+- **Google Analytics 4:** Custom events (ga4-events.json'a göre)
+- **Google Ads Conversion:** AW-17452256740
+
+### Development Tools
+- **ESLint:** Next.js config + custom rules
+- **Prettier:** Code formatting
+- **Husky:** Pre-commit hooks
+- **lint-staged:** Staged files linting
+- **TypeScript:** Strict mode
+
+### Deployment
+- **Platform:** Vercel (önerilen) veya Netlify
+- **CDN:** Automatic (Vercel Edge Network)
+- **SSL:** Otomatik (Let's Encrypt)
+
+---
+
+## 3. SEO GEREKSİNİMLERİ
+
+### URL Yapısı ve Redirectler
+**Mevcut WordPress URL'ler korunacak:**
+```
+WordPress:              Next.js:
+/periyodik-bakim/    → /hizmetler/periyodik-bakim
+/blog-post-title/    → /blog-post-title
+/?p=123              → 301 redirect to proper URL
+/category/bakim/     → /kategori/bakim
+```
+
+**Redirect Rules (next.config.js):**
+- Tüm eski URL'ler 301 permanent redirect
+- www → non-www (veya tersi, hangisi SEO'da güçlüyse)
+- http → https (automatic)
+- Trailing slash: consistent (/ ile bitecek veya bitmeyecek - karar ver)
+
+### Sitemap & Robots
+```xml
+<!-- sitemap.xml -->
+- Ana sayfa
+- Tüm hizmet sayfaları
+- Tüm blog yazıları
+- Tüm akü ürün sayfaları
+- İletişim sayfası
+- Priority ve changefreq düzgün ayarlanacak
+- lastmod: build time
+```
+```txt
+<!-- robots.txt -->
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Sitemap: https://betaozelservis.com/sitemap.xml
+```
+
+### Metadata (Her Sayfa)
+- **Title:** Unique, 50-60 karakter, keyword içerecek
+- **Description:** Unique, 150-160 karakter
+- **Canonical URL:** Her sayfada
+- **Open Graph:** title, description, image (1200x630)
+- **Twitter Card:** summary_large_image
+- **Locale:** tr_TR
+- **Alternate:** (varsa farklı dil versiyonları)
+
+### Structured Data (JSON-LD)
+
+**Ana Sayfa - LocalBusiness:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "AutomotiveBusiness",
+  "name": "Beta Özel Servis",
+  "image": "https://betaozelservis.com/images/logo.jpg",
+  "telephone": "+905332081400",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Tuzla Oto San. Sit. B/1 Blok No:105",
+    "addressLocality": "İçmeler, Tuzla",
+    "addressRegion": "İstanbul",
+    "postalCode": "34785",
+    "addressCountry": "TR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 40.851195,
+    "longitude": 29.303603
+  },
+  "url": "https://betaozelservis.com",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "07:50",
+      "closes": "20:30"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "08:30",
+      "closes": "19:00"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.5",
+    "reviewCount": "42"
+  }
+}
+```
+
+**Hizmet Sayfaları - Service:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Periyodik Bakım",
+  "provider": {
+    "@type": "AutomotiveBusiness",
+    "name": "Beta Özel Servis"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "İstanbul"
+  },
+  "description": "..."
+}
+```
+
+**Blog Yazıları - Article:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Blog Başlık",
+  "author": {
+    "@type": "Organization",
+    "name": "Beta Özel Servis"
+  },
+  "datePublished": "2024-01-15",
+  "dateModified": "2024-01-15",
+  "image": "...",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Beta Özel Servis",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "..."
+    }
+  }
+}
+```
+
+**SSS Varsa - FAQPage:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [...]
+}
+```
+
+---
+
+## 4. PERFORMANS OPTİMİZASYONLARI
+
+### Image Optimization
+```typescript
+// next.config.js
+images: {
+  formats: ['image/avif', 'image/webp'],
+  deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+  imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  minimumCacheTTL: 31536000,
+  dangerouslyAllowSVG: true,
+  contentDispositionType: 'attachment',
+  contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+}
+
+// Kullanım
+<Image
+  src="/images/hero-service.jpg"
+  alt="Beta Özel Servis Atölye"
+  width={1920}
+  height={1080}
+  priority={true} // Sadece hero image için
+  quality={85}
+  placeholder="blur"
+  blurDataURL="data:image/..."
+  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+/>
+```
+
+### Font Loading Strategy
+```typescript
+// app/layout.tsx
+import { Inter } from 'next/font/google';
+
+const inter = Inter({
+  subsets: ['latin', 'latin-ext'], // Türkçe karakterler
+  variable: '--font-inter',
+  display: 'swap',
+  preload: true,
+  fallback: ['system-ui', 'arial'],
+  weight: ['400', '500', '600', '700'],
+  adjustFontFallback: true, // CLS önleme
+});
+
+// Alternatif: System font stack (sıfır network request)
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+```
+
+### Critical CSS
+```typescript
+// app/layout.tsx - <head> içinde inline critical CSS
+<style dangerouslySetInnerHTML={{
+  __html: `
+    :root {
+      --color-primary: #1a56db;
+      --color-secondary: #059669;
+    }
+    body { margin: 0; font-family: var(--font-inter); }
+    .hero { min-height: 500px; }
+    /* Sadece above-the-fold CSS */
+  `
+}} />
+```
+
+### Resource Hints
+```typescript
+<head>
+  {/* DNS Prefetch */}
+  <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+  <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
+  <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+  
+  {/* Preconnect */}
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+  
+  {/* Preload */}
+  <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="" />
+  <link rel="preload" href="/images/hero.webp" as="image" />
+</head>
+```
+
+Code Splitting & Lazy Loading
+typescript// Hero altındaki tüm section'lar lazy load
+import dynamic from 'next/dynamic';
+
+const ServicesSection = dynamic(() => import('@/components/ServicesSection'), {
+  loading: () => <SectionSkeleton />,
+  ssr: true,
+});
+
+const TestimonialsSection = dynamic(() => import('@/components/Testimonials'), {
+  ssr: false, // Fold altında, SEO gereksiz
+});
+
+const MapSection = dynamic(() => import('@/components/MapEmbed'), {
+  ssr: false,
+  loading: () => <div className="h-96 bg-gray-100 animate-pulse" />,
+});
+
+// Blog içi görseller kesinlikle lazy
+<Image
+  src="..."
+  loading="lazy"
+  priority={false}
+/>
+Bundle Size Optimization
+javascript// next.config.js
+experimental: {
+  optimizePackageImports: ['lucide-react', 'date-fns'],
+},
+compiler: {
+  removeConsole: process.env.NODE_ENV === 'production',
+},
+
+5. ANALYTICS & TRACKING DETAYLARI
+GA4 Implementation
+Tracking ID'ler:
+
+GA4 Measurement ID: G-XXXXXXXXXX
+Google Ads Conversion ID: AW-17452256740
+
+Event Tracking (ga4-events.json'a göre):
+1. Telefon Aramaları:
+typescript// Usta/Acil Hat: 0533 208 14 00
+gtag('event', 'usta_arama', {
+  event_category: 'Telefon Aramaları',
+  event_label: 'Usta Arama - 0533 208 14 00',
+  telefon_numarasi: '0533 208 14 00',
+  telefon_tipi: 'cep_telefonu',
+  buton_konumu: 'hero_acil_yardim', // dynamic
+  value: 1,
+  currency: 'TRY'
+});
+
+// Muhasebe Hat: 0216 392 22 59
+gtag('event', 'muhasebe_arama', {
+  event_category: 'Telefon Aramaları',
+  event_label: 'Muhasebe Arama - 0216 392 22 59',
+  telefon_numarasi: '0216 392 22 59',
+  telefon_tipi: 'sabit_hat',
+  buton_konumu: 'iletisim_sayfasi', // dynamic
+  value: 1,
+  currency: 'TRY'
+});
+2. WhatsApp Tıklamaları:
+typescriptgtag('event', 'whatsapp_click', {
+  event_category: 'İletişim',
+  event_label: 'WhatsApp Mesaj',
+  click_location: 'hero_whatsapp_cta', // dynamic
+  telefon_numarasi: '0533 208 14 00',
+  value: 1
+});
+3. Harita Etkileşimleri:
+typescript// Harita iframe tıklama
+gtag('event', 'harita_tiklamasi', {
+  event_category: 'Konum',
+  event_label: 'Harita Tıklama',
+  interaction_type: 'iframe_click',
+  map_location: 'iletisim_sayfasi_harita_iframe',
+  value: 0.5
+});
+
+// Yol tarifi linki
+gtag('event', 'yol_tarifi_al', {
+  event_category: 'Konum',
+  event_label: 'Yol Tarifi Al',
+  map_source: 'google_maps',
+  click_location: 'hero_yol_tarifi_cta',
+  value: 0.8
+});
+4. Blog CTA'ları:
+typescriptgtag('event', 'blog_cta_click', {
+  event_category: 'Blog Etkileşimi',
+  event_label: 'CTA Tıklama',
+  blog_title: 'Blog yazı başlığı',
+  cta_location: 'blog_middle', // blog_start, blog_middle, blog_end
+  cta_type: 'phone', // phone, whatsapp, map, appointment
+  value: 0.5
+});
+5. Form Dönüşümleri:
+typescript// Form başlangıç
+gtag('event', 'randevu_formu_basla', {
+  event_category: 'Form Etkileşimi',
+  event_label: 'Form Başlatıldı',
+  form_type: 'randevu',
+  form_location: 'ana_sayfa'
+});
+
+// Form gönderim (CONVERSION)
+gtag('event', 'randevu_formu_gonderildi', {
+  event_category: 'Dönüşüm',
+  event_label: 'Randevu Formu Gönderildi',
+  form_type: 'randevu',
+  hizmet_tipi: 'periyodik_bakim',
+  value: 5,
+  currency: 'TRY'
+});
+
+// Google Ads Conversion
+gtag('event', 'conversion', {
+  send_to: 'AW-17452256740/randevu_talebi',
+  value: 5.0,
+  currency: 'TRY'
+});
+6. Scroll Depth:
+typescriptgtag('event', 'scroll_depth', {
+  event_category: 'Sayfa Etkileşimi',
+  event_label: '50%',
+  scroll_depth: 50,
+  page_type: 'blog'
+});
+// 25%, 50%, 75%, 100% milestone'ları
+Google Ads Conversion Tracking
+Conversion Actions:
+
+usta_arama → AW-17452256740/0533_tel_arandi
+muhasebe_arama → AW-17452256740/0216_sabit_tel_arandi
+randevu_formu_gonderildi → AW-17452256740/randevu_talebi
+aku_fiyat_talep → AW-17452256740/aku_fiyat_talebi
+
+Enhanced Conversions:
+typescriptgtag('config', 'AW-17452256740', {
+  allow_enhanced_conversions: true,
+  phone_conversion_options: {
+    ignore_code: true // Çift sayımı engelle
+  }
+});
+Harita Tracking Implementation
+Iframe Map (İletişim Sayfası):
+typescript'use client';
+
+export function MapEmbed() {
+  const [mapClicked, setMapClicked] = useState(false);
+
+  const handleMapInteraction = () => {
+    if (!mapClicked) {
+      gtag('event', 'harita_tiklamasi', {
+        event_category: 'Konum',
+        event_label: 'Harita Tıklama',
+        interaction_type: 'iframe_click',
+        map_location: 'iletisim_sayfasi_harita_iframe',
+        value: 0.5
+      });
+      setMapClicked(true);
+    }
+  };
+
+  return (
+    <div 
+      className="relative w-full h-96 cursor-pointer"
+      onPointerDown={handleMapInteraction}
+      onTouchStart={handleMapInteraction}
+    >
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3017.9420996828785!2d29.303603!3d40.851195..."
+        width="100%"
+        height="100%"
+        style={{ border: 0 }}
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        title="Beta Özel Servis Harita"
+      />
+    </div>
+  );
+}
+Direkt Map Link:
+typescript
+  href="https://maps.app.goo.gl/dsR4rPGH2s1pBtfX7"
+  target="_blank"
+  rel="noopener noreferrer"
+  onClick={() => {
+    gtag('event', 'yol_tarifi_al', {
+      event_category: 'Konum',
+      event_label: 'Yol Tarifi Al',
+      map_source: 'google_maps',
+      click_location: 'footer_yol_tarifi',
+      value: 0.8
+    });
+  }}
+>
+  Yol Tarifi Al
+</a>
+
+
+
+Performance öncelik: Her karar performans düşünülerek alınacak
+Mobile-first: Tasarım ve geliştirme mobil öncelikli
+SEO korunacak: Mevcut sıralamalar korunmalı, iyileştirilmeli
+Tracking detaylı: Her etkileşim ölçülecek, optimize edilecek
+Accessibility: WCAG 2.1 AAA standartlarına uygun
+Scalable: İleride kolayca yeni hizmet/ürün eklenebilmeli
+Maintainable: Kod temiz, dokümante, TypeScript strict mode

@@ -1,0 +1,6 @@
+# Dil ve İletişim Kuralları
+
+- Kullanıcı ile her zaman **Türkçe** konuş.
+- Tüm planlar (`implementation_plan.md`), görev listeleri (`task.md`) ve incelemeler (`walkthrough.md`) **Türkçe** olarak hazırlanmalıdır.
+- Kod açıklamaları ve teknik dökümantasyonlar da Türkçe olmalıdır (kodun kendisindeki değişken isimleri hariç).
+- İletişim tonu profesyonel ve yardımcı olmalıdır.

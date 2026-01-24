@@ -1,0 +1,170 @@
+[
+  {
+    "id": "1706",
+    "name": "Varta A7 70 AH AGM Akü",
+    "slug": "varta-a7-70-ah-agm-ak",
+    "description": "VARTA Silver Dynamic AGM, benzersiz performans ve start-stop sistemli araçlar için 3 kat daha uzun ömür sunar.",
+    "price": "7750",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "https://betaozelservis.com/wp-content/uploads/2024/12/Varata-A7-70-AH-AGM-4.jpg"
+    ]
+  },
+  {
+    "id": "1708",
+    "name": "Varta D54 12V 65Ah Start Stop Akü",
+    "slug": "varta-d54-12v-65ah-start-stop-ak",
+    "description": "Mavi dinamik EFB serisi, standart start-stop sistemli araçlar için mükemmel dayanıklılık.",
+    "price": "4264",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "https://betaozelservis.com/wp-content/uploads/2024/12/Varta-Blue-Dynamic-EFB-12V-65Ah-680A.jpg"
+    ]
+  },
+  {
+    "id": "1709",
+    "name": "Varta N60 60 AH EFB Akü",
+    "slug": "varta-n60-60-ah-efb-ak",
+    "description": "Gelişmiş EFB teknolojisi ile yüksek marş gücü ve güvenilirlik.",
+    "price": "4070",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "https://betaozelservis.com/wp-content/uploads/2024/12/Varta-N60-60-AH-EFB.jpg"
+    ]
+  },
+  {
+    "id": "1738",
+    "name": "Varta A8 60 AH AGM Akü",
+    "slug": "varta-a8-60-ah-agm-ak",
+    "description": "VARTA Silver Dynamic AGM 60Ah, üstün performans.",
+    "price": "6456",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "https://betaozelservis.com/wp-content/uploads/2024/12/CL_560901068-500x500-1.png"
+    ]
+  },
+  {
+    "id": "1801",
+    "name": "Varta Dynamic SLI 110 Ah (920A) - Kod I1",
+    "slug": "varta-dynamic-sli-110-ah-920a-kod-i1",
+    "description": "VARTA Dynamic SLI, düşük ila orta düzeyde enerji ihtiyacı olan araçlar için özel olarak tasarlanmıştır. Güçlü marş performansı sağlar ve bakımsızdır.",
+    "price": "",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "/images/products/varta/varta-sli_i1_110ah.png"
+    ]
+  },
+  {
+    "id": "1802",
+    "name": "Varta Dynamic SLI 100 Ah (830A) - Kod H3",
+    "slug": "varta-dynamic-sli-100-ah-830a-kod-h3",
+    "description": "Geleneksel araçlar için güvenilir marş gücü sunan VARTA SLI teknolojisi.",
+    "price": "",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "/images/products/varta/varta-sli_h3_100ah.png"
+    ]
+  },
+  {
+    "id": "1803",
+    "name": "Varta Dynamic SLI 88 Ah (740A) - Kod F5",
+    "slug": "varta-dynamic-sli-88-ah-740a-kod-f5",
+    "description": "Yüksek kaliteli Alman mühendisliği ile üretilmiş standart binek araç aküsü.",
+    "price": "",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "/images/products/varta/varta-sli_f5_88ah.png"
+    ]
+  },
+  {
+    "id": "1804",
+    "name": "Varta Dynamic SLI 95 Ah (830A) - Kod G8 (Asya)",
+    "slug": "varta-dynamic-sli-95-ah-830a-kod-g8",
+    "description": "Asya tipi araçlar için özel boyutlarda yüksek performanslı Varta SLI akü.",
+    "price": "",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "/images/products/varta/varta-sli_g8_95ah.png"
+    ]
+  },
+  {
+    "id": "1805",
+    "name": "Varta Dynamic SLI 95 Ah (800A) - Kod G3",
+    "slug": "varta-dynamic-sli-95-ah-800a-kod-g3",
+    "description": "Dayanıklı ve güçlü marş performansı sunan Varta Dynamic SLI.",
+    "price": "",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "/images/products/varta/varta-sli_g3_95ah.png"
+    ]
+  },
+  {
+    "id": "1810",
+    "name": "Varta Dynamic SLI 72 Ah (680A) - Kod E43",
+    "slug": "varta-dynamic-sli-72-ah-680a-kod-e43",
+    "description": "Standart enerji gereksinimi olan araçlar için ideal çözüm.",
+    "price": "",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "/images/products/varta/varta-sli_e43_72ah.png"
+    ]
+  },
+  {
+    "id": "1807",
+    "name": "Varta Dynamic SLI 74 Ah (750A) - Kod E38",
+    "slug": "varta-dynamic-sli-74-ah-750a-kod-e38",
+    "description": "Yüksek kalite ve uzun ömür sunan Varta SLI teknolojisi.",
+    "price": "",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "/images/products/varta/varta-sli_e38_74ah.png"
+    ]
+  },
+  {
+    "id": "1808",
+    "name": "Varta Dynamic SLI 85 Ah (800A) - Kod F18",
+    "slug": "varta-dynamic-sli-85-ah-800a-kod-f18",
+    "description": "Üst segment araçlar için güvenilir ve güçlü marş performansı.",
+    "price": "",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "/images/products/varta/varta-sli_f18_85ah.png"
+    ]
+  },
+  {
+    "id": "1809",
+    "name": "Varta Dynamic SLI 77 Ah (780A) - Kod E44",
+    "slug": "varta-dynamic-sli-77-ah-780a-kod-e44",
+    "description": "Güçlü ve bakımsız Varta Dynamic SLI akü.",
+    "price": "",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "/images/products/varta/varta-sli_e44_77ah.png"
+    ]
+  },
+  {
+    "id": "1806",
+    "name": "Varta Dynamic SLI 74 Ah (680A) - Kod E11",
+    "slug": "varta-dynamic-sli-74-ah-680a-kod-e11",
+    "description": "Varta'nın en popüler standart modellerinden biri olan E11, yüksek performans sunar.",
+    "price": "",
+    "categories": "Varta, Aküler",
+    "brand": "Varta",
+    "images": [
+      "/images/products/varta/varta-sli_e11_74ah.png"
+    ]
+  }
+]
