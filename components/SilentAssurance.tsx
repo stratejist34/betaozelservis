@@ -18,7 +18,7 @@ export default function SilentAssurance() {
                 <h2 className="text-white text-sm font-bold tracking-[0.3em] uppercase mb-3">
                     Bu yaklaşımı neden sürdürüyoruz?
                 </h2>
-                <h3 className="text-[#717479] text-[10px] font-bold tracking-[0.2em] uppercase mb-8 opacity-60">
+                <h3 className="text-charcoal-400 text-[10px] font-black tracking-[0.2em] uppercase mb-8">
                     Müşterilerimizin en çok dikkat ettiği detaylar
                 </h3>
 

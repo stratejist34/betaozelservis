@@ -129,6 +129,7 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
                             type="button"
                             className={`p-2 transition-all ${isDarkText ? 'text-charcoal-900' : 'text-white'}`}
                             onClick={() => setMobileMenuOpen(true)}
+                            aria-label="Menüyü aç"
                         >
                             <Menu className="h-6 w-6 stroke-[3]" />
                         </button>

@@ -130,7 +130,9 @@ export default async function DynamicRoutePage({ params }: Props) {
         return `<${tag}${attrs} id="${id}">${text}</${tag}>`;
     });
 
-    // 4. Split content for CTA: Try to insert after the first table, otherwise use midpoint
+    // 4. Split content for CTA: Try to insert after the first table, 
+    // otherwise try after the 2nd H2 (to avoid appearing too early), 
+    // otherwise use midpoint
     let part1, part2;
     const tableIndex = processedContent.indexOf('</table>');
 
@@ -140,10 +142,31 @@ export default async function DynamicRoutePage({ params }: Props) {
         part1 = processedContent.substring(0, splitPoint);
         part2 = processedContent.substring(splitPoint);
     } else {
-        const contentParts = processedContent.split('</p>');
-        const midPoint = Math.floor(contentParts.length / 2);
-        part1 = contentParts.slice(0, midPoint).join('</p>') + (contentParts.length > 0 ? '</p>' : '');
-        part2 = contentParts.slice(midPoint).join('</p>');
+        // Find the 3rd heading (H2 or H3) to place it after the 2nd section's content
+        const headingRegex = /<(h2|h3)[^>]*>.*?<\/\1>/gi;
+        let match;
+        let headingCount = 0;
+        let splitPoint = -1;
+
+        while ((match = headingRegex.exec(processedContent)) !== null) {
+            headingCount++;
+            if (headingCount === 3) {
+                // Split right BEFORE the 3rd heading
+                splitPoint = match.index;
+                break;
+            }
+        }
+
+        if (splitPoint !== -1) {
+            part1 = processedContent.substring(0, splitPoint);
+            part2 = processedContent.substring(splitPoint);
+        } else {
+            // Fallback to midpoint if less than 3 headings
+            const contentParts = processedContent.split('</p>');
+            const midPoint = Math.floor(contentParts.length / 2);
+            part1 = contentParts.slice(0, midPoint).join('</p>') + (contentParts.length > 0 ? '</p>' : '');
+            part2 = contentParts.slice(midPoint).join('</p>');
+        }
     }
 
     const jsonLd = isPost ? {

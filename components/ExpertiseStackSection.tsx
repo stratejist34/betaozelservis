@@ -108,7 +108,7 @@ export default function ExpertiseStackSection() {
                                     src={card.image}
                                     alt={card.title}
                                     fill
-                                    className="object-cover opacity-30 group-hover:opacity-60 group-hover:scale-105 transition-all duration-[2500ms]"
+                                    className="object-cover opacity-30 group-hover:opacity-60 group-hover:scale-105 transition-[opacity,transform] duration-[2500ms]"
                                     quality={90}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-charcoal-950/60 to-transparent z-10" />

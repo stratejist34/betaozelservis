@@ -13,9 +13,14 @@ export default function ScientificCTA({ variant = 'inline' }: ScientificCTAProps
     const trackAction = (action: string) => {
         // @ts-ignore
         if (typeof gtag !== 'undefined') {
+            const eventName = variant === 'soft'
+                ? (action === 'phone' ? 'blog_soft_cta_tel' : 'blog_soft_cta_whatsapp')
+                : (action === 'phone' ? 'blog_focus_cta_tel' : 'blog_focus_cta_whatsapp');
+
             // @ts-ignore
-            gtag('event', action === 'phone' ? 'scientific_cta_tel_click' : 'scientific_cta_whatsapp', {
+            gtag('event', eventName, {
                 variant: variant,
+                action_type: action
             });
         }
     };

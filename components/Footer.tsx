@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Phone, Mail, Facebook, Instagram, Clock, MapPin } from 'lucide-react';
 
@@ -16,6 +18,13 @@ export default function Footer() {
                         href="https://wa.me/905332081400?text=Randevu talebi oluşturmak istiyorum."
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => {
+                            // @ts-ignore
+                            if (typeof gtag !== 'undefined') {
+                                // @ts-ignore
+                                gtag('event', 'footer_randevu_talebi_tiklandi');
+                            }
+                        }}
                         className="inline-flex items-center gap-4 bg-charcoal-800/40 hover:bg-brand-default border border-charcoal-600 hover:border-brand-default px-12 py-5 rounded-2xl text-sm font-black uppercase tracking-[0.3em] text-white transition-all group scale-95 hover:scale-100"
                     >
                         Randevu Talebi Oluştur
@@ -34,10 +43,10 @@ export default function Footer() {
                             Tuzla'da 15 yılı aşkın deneyimimizle Audi, Volkswagen, BMW ve Mercedes araçlarınız için profesyonel, garantili ve güvenilir özel servis hizmeti sunuyoruz.
                         </p>
                         <div className="flex gap-5">
-                            <a href="https://facebook.com/betaozelservis" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-charcoal-800 flex items-center justify-center hover:bg-brand-default text-charcoal-100 hover:text-white transition-all duration-300">
+                            <a href="https://facebook.com/betaozelservis" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-charcoal-800 flex items-center justify-center hover:bg-brand-default text-charcoal-100 hover:text-white transition-all duration-300" aria-label="Facebook">
                                 <Facebook className="w-5 h-5" />
                             </a>
-                            <a href="https://instagram.com/betaozelservis" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-charcoal-800 flex items-center justify-center hover:bg-brand-default text-charcoal-100 hover:text-white transition-all duration-300">
+                            <a href="https://instagram.com/betaozelservis" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-charcoal-800 flex items-center justify-center hover:bg-brand-default text-charcoal-100 hover:text-white transition-all duration-300" aria-label="Instagram">
                                 <Instagram className="w-5 h-5" />
                             </a>
                         </div>

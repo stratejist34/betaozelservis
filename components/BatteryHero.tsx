@@ -25,17 +25,6 @@ export default function BatteryHero({ compact = false }: { compact?: boolean }) 
                         )}
                     </div>
 
-                    {/* Miniature Product Image - Matches 2 line height */}
-                    <div className="relative w-40 h-24 md:w-56 md:h-32 shrink-0 group animate-fade-in group">
-                        {/* Technical Glow */}
-                        <div className="absolute inset-x-0 bottom-0 h-10 bg-brand-default/20 blur-2xl opacity-50 group-hover:opacity-80 transition-opacity" />
-                        <Image
-                            src="/images/products/varta/varta-sli_h3_100ah.png"
-                            alt="Varta Dynamic SLI 100Ah"
-                            fill
-                            className="object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] transform group-hover:scale-110 transition-transform duration-500"
-                        />
-                    </div>
                 </div>
 
                 {!compact && (

@@ -31,7 +31,7 @@ export default function MaintenancePackages() {
                         <div className="mb-8 relative z-10">
                             <span className="text-[10px] font-black text-charcoal-400 tracking-[0.2em] uppercase">PAKET // 01</span>
                             <h3 className="text-3xl font-black text-charcoal-900 mt-2 uppercase tracking-tight italic">Standart Bakım</h3>
-                            <p className="text-brand-default text-xs font-black mt-2 uppercase tracking-widest italic opacity-80">Temel Koruma</p>
+                            <p className="text-brand-default text-xs font-black mt-2 uppercase tracking-widest italic">Temel Koruma</p>
                         </div>
 
                         <div className="space-y-5 mb-12 flex-grow">
@@ -124,7 +124,7 @@ export default function MaintenancePackages() {
                         <div className="mb-8 relative z-10">
                             <span className="text-[10px] font-black text-charcoal-400 tracking-[0.2em] uppercase">PAKET // 03</span>
                             <h3 className="text-3xl font-black text-charcoal-900 mt-2 uppercase tracking-tight italic">Kapsamlı Bakım</h3>
-                            <p className="text-emerald-600 text-xs font-black mt-2 uppercase tracking-widest italic opacity-80">Uzun Yol Hazırlığı</p>
+                            <p className="text-emerald-600 text-xs font-black mt-2 uppercase tracking-widest italic">Uzun Yol Hazırlığı</p>
                         </div>
 
                         <div className="space-y-5 mb-12 flex-grow">
