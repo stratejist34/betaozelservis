@@ -29,7 +29,7 @@ export default function MaintenancePackages() {
                     {/* Paket 1: Standart - Sade ve Net */}
                     <div className="flex flex-col p-10 bg-beta-silver-deep rounded-[3rem] border border-beta-silver-medium shadow-premium hover:shadow-2xl transition-all duration-500 group relative overflow-hidden">
                         <div className="mb-8 relative z-10">
-                            <span className="text-[10px] font-black text-charcoal-400 tracking-[0.2em] uppercase">PAKET // 01</span>
+                            <span className="text-[10px] font-black text-charcoal-600 tracking-[0.2em] uppercase">PAKET // 01</span>
                             <h3 className="text-3xl font-black text-charcoal-900 mt-2 uppercase tracking-tight italic">Standart Bakım</h3>
                             <p className="text-brand-default text-xs font-black mt-2 uppercase tracking-widest italic">Temel Koruma</p>
                         </div>
@@ -56,7 +56,7 @@ export default function MaintenancePackages() {
                         </div>
 
                         <div className="pt-8 border-t border-beta-silver-ultra">
-                            <p className="text-charcoal-400 text-xs font-bold leading-relaxed italic">Hiçbir gereksiz işlem yapılmaz, sadece net ihtiyaç.</p>
+                            <p className="text-charcoal-600 text-xs font-bold leading-relaxed italic">Hiçbir gereksiz işlem yapılmaz, sadece net ihtiyaç.</p>
                         </div>
                     </div>
 
@@ -115,16 +115,16 @@ export default function MaintenancePackages() {
                         </div>
 
                         <div className="pt-8 border-t border-white/5">
-                            <p className="text-charcoal-400 text-xs font-bold leading-relaxed italic">Gizli arızaları gün yüzüne çıkaran tam kontrol.</p>
+                            <p className="text-charcoal-500 text-xs font-bold leading-relaxed italic">Gizli arızaları gün yüzüne çıkaran tam kontrol.</p>
                         </div>
                     </div>
 
                     {/* Paket 3: Kapsamlı - Full Fokus */}
                     <div className="flex flex-col p-10 bg-beta-silver-deep rounded-[3rem] border border-beta-silver-medium shadow-premium hover:shadow-2xl transition-all duration-500 group relative overflow-hidden">
                         <div className="mb-8 relative z-10">
-                            <span className="text-[10px] font-black text-charcoal-400 tracking-[0.2em] uppercase">PAKET // 03</span>
+                            <span className="text-[10px] font-black text-charcoal-600 tracking-[0.2em] uppercase">PAKET // 03</span>
                             <h3 className="text-3xl font-black text-charcoal-900 mt-2 uppercase tracking-tight italic">Kapsamlı Bakım</h3>
-                            <p className="text-emerald-600 text-xs font-black mt-2 uppercase tracking-widest italic">Uzun Yol Hazırlığı</p>
+                            <p className="text-emerald-800 text-xs font-black mt-2 uppercase tracking-widest italic">Uzun Yol Hazırlığı</p>
                         </div>
 
                         <div className="space-y-5 mb-12 flex-grow">
@@ -149,7 +149,7 @@ export default function MaintenancePackages() {
                         </div>
 
                         <div className="pt-8 border-t border-beta-silver-ultra">
-                            <p className="text-charcoal-400 text-xs font-bold leading-relaxed italic">A'dan Z'ye tam kontrol ve sınırsız güven.</p>
+                            <p className="text-charcoal-600 text-xs font-bold leading-relaxed italic">A'dan Z'ye tam kontrol ve sınırsız güven.</p>
                         </div>
                     </div>
                 </div>

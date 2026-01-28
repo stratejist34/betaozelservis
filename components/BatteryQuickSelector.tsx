@@ -178,59 +178,44 @@ export default function BatteryQuickSelector({ showTrustBadges = false }: { show
                             </div>
                         </a>
 
-                        {/* Secondary Actions & Image Relocation */}
-                        <div className="flex flex-col md:flex-row gap-6 mb-10 items-end">
-                            {/* Secondary Actions Grid */}
-                            <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-3 sm:gap-4 w-full">
-                                <a
-                                    href={getWhatsAppUrl('photo')}
-                                    target="_blank"
-                                    onClick={() => trackEvent('aku_etiket_foto')}
-                                    className="flex items-center gap-3 px-5 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-2xl text-white/80 hover:text-brand-default hover:bg-white/10 hover:border-brand-default/30 transition-all group/link"
-                                >
-                                    <Photo className="w-4 h-4 sm:w-5 sm:h-5 text-brand-default shrink-0" />
-                                    <div className="text-left overflow-hidden">
-                                        <span className="text-[12px] sm:text-[13px] font-black block leading-tight mb-0.5 truncate uppercase">Fotoğraf Gönder</span>
-                                        <span className="text-[10px] sm:text-[11px] text-charcoal-300 block font-medium leading-none truncate">Etiketi çekin.</span>
-                                    </div>
-                                </a>
-                                <a
-                                    href={getWhatsAppUrl('general')}
-                                    target="_blank"
-                                    onClick={() => trackEvent('aku_genel_whatsapp') /* Extra context for tracking */}
-                                    className="flex items-center gap-3 px-5 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-2xl text-white/80 hover:text-brand-default hover:bg-white/10 hover:border-brand-default/30 transition-all group/link"
-                                >
-                                    <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-brand-default shrink-0" />
-                                    <div className="text-left overflow-hidden">
-                                        <span className="text-[12px] sm:text-[13px] font-black block leading-tight mb-0.5 truncate uppercase">WhatsApp'tan Yaz</span>
-                                        <span className="text-[10px] sm:text-[11px] text-charcoal-300 block font-medium leading-none truncate">Hızlı akü teyidi.</span>
-                                    </div>
-                                </a>
-                                <a
-                                    href={getWhatsAppUrl('chassis')}
-                                    target="_blank"
-                                    onClick={() => trackEvent('aku_sasi_sorgu')}
-                                    className="flex items-center gap-3 px-5 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-2xl text-white/80 hover:text-brand-default hover:bg-white/10 hover:border-brand-default/30 transition-all group/link"
-                                >
-                                    <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-brand-default shrink-0" />
-                                    <div className="text-left overflow-hidden">
-                                        <span className="text-[12px] sm:text-[13px] font-black block leading-tight mb-0.5 truncate uppercase">Şasi No İle Sorgula</span>
-                                        <span className="text-[10px] sm:text-[11px] text-charcoal-300 block font-medium leading-none truncate">(17 Karakter)</span>
-                                    </div>
-                                </a>
-                            </div>
-
-                            {/* Relocated Battery Image - Integrated next to actions */}
-                            <div className="relative w-40 h-24 md:w-56 md:h-32 shrink-0 group animate-fade-in self-center md:self-end">
-                                {/* Technical Glow */}
-                                <div className="absolute inset-x-0 bottom-0 h-10 bg-brand-default/20 blur-2xl opacity-50 group-hover:opacity-80 transition-opacity" />
-                                <Image
-                                    src="/images/products/varta/varta-sli_h3_100ah.png"
-                                    alt="Varta Dynamic SLI 100Ah"
-                                    fill
-                                    className="object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] transform group-hover:scale-110 transition-transform duration-500"
-                                />
-                            </div>
+                        {/* Secondary Actions - Restored Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-10 w-full relative z-10">
+                            <a
+                                href={getWhatsAppUrl('photo')}
+                                target="_blank"
+                                onClick={() => trackEvent('aku_etiket_foto')}
+                                className="flex items-center gap-3 px-5 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-2xl text-white/80 hover:text-brand-default hover:bg-white/10 hover:border-brand-default/30 transition-all group/link"
+                            >
+                                <Photo className="w-4 h-4 sm:w-5 sm:h-5 text-brand-default shrink-0" />
+                                <div className="text-left overflow-hidden">
+                                    <span className="text-[12px] sm:text-[13px] font-black block leading-tight mb-0.5 truncate uppercase">Fotoğraf Gönder</span>
+                                    <span className="text-[10px] sm:text-[11px] text-charcoal-300 block font-medium leading-none truncate">Etiketi çekin.</span>
+                                </div>
+                            </a>
+                            <a
+                                href={getWhatsAppUrl('general')}
+                                target="_blank"
+                                onClick={() => trackEvent('aku_genel_whatsapp') /* Extra context for tracking */}
+                                className="flex items-center gap-3 px-5 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-2xl text-white/80 hover:text-brand-default hover:bg-white/10 hover:border-brand-default/30 transition-all group/link"
+                            >
+                                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-brand-default shrink-0" />
+                                <div className="text-left overflow-hidden">
+                                    <span className="text-[12px] sm:text-[13px] font-black block leading-tight mb-0.5 truncate uppercase">WhatsApp'tan Yaz</span>
+                                    <span className="text-[10px] sm:text-[11px] text-charcoal-300 block font-medium leading-none truncate">Hızlı akü teyidi.</span>
+                                </div>
+                            </a>
+                            <a
+                                href={getWhatsAppUrl('chassis')}
+                                target="_blank"
+                                onClick={() => trackEvent('aku_sasi_sorgu')}
+                                className="flex items-center gap-3 px-5 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-2xl text-white/80 hover:text-brand-default hover:bg-white/10 hover:border-brand-default/30 transition-all group/link"
+                            >
+                                <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-brand-default shrink-0" />
+                                <div className="text-left overflow-hidden">
+                                    <span className="text-[12px] sm:text-[13px] font-black block leading-tight mb-0.5 truncate uppercase">Şasi No İle Sorgula</span>
+                                    <span className="text-[10px] sm:text-[11px] text-charcoal-300 block font-medium leading-none truncate">(17 Karakter)</span>
+                                </div>
+                            </a>
                         </div>
 
                         {showTrustBadges && (
