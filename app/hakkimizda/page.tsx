@@ -29,6 +29,7 @@ export default function AboutPage() {
                         alt="Beta Özel Servis Atölye"
                         fill
                         className="object-cover brightness-50"
+                        sizes="(max-width: 1440px) 98vw, 1440px"
                         priority
                     />
                 </div>

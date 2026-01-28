@@ -56,12 +56,12 @@ export default async function AkulerPage(props: {
             {/* Premium Metal Glow Background */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(191,194,201,0.12)_0%,_transparent_50%)] pointer-events-none" />
 
-            <div className="pt-24 sm:pt-32">
-                <BatteryHero />
+            <div className="pt-12 sm:pt-16">
+                <BatteryHero compact={true} />
             </div>
 
             <Suspense fallback={<div className="h-32" />}>
-                <BatteryQuickSelector />
+                <BatteryQuickSelector showTrustBadges={true} />
             </Suspense>
 
             {/* Recommended Packages Section */}

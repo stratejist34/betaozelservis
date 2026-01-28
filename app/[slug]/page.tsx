@@ -109,10 +109,22 @@ export default async function DynamicRoutePage({ params }: Props) {
 
     // 3. Then add IDs to remaining headings for TOC and split for CTA
     const tocItems: { id: string; text: string; level: number }[] = [];
+    const usedIds = new Set<string>();
+
     const processedContent = contentCleaned.replace(/<(h[23])([^>]*)>(.*?)<\/\1>/gi, (match, tag, attrs, text) => {
-        const id = text.toLowerCase()
+        const baseId = text.toLowerCase()
             .replace(/[^a-z0-9ğüşıöç ]/gi, '')
             .replace(/\s+/g, '-');
+
+        let id = baseId;
+        let counter = 1;
+
+        while (usedIds.has(id)) {
+            id = `${baseId}-${counter}`;
+            counter++;
+        }
+
+        usedIds.add(id);
 
         tocItems.push({ id, text: text.replace(/<[^>]*>?/gm, ''), level: parseInt(tag.substring(1)) });
         return `<${tag}${attrs} id="${id}">${text}</${tag}>`;
@@ -191,6 +203,7 @@ export default async function DynamicRoutePage({ params }: Props) {
                                         alt={safeItem.title}
                                         fill
                                         className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 66vw, 900px"
                                         priority
                                     />
                                 </div>

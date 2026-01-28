@@ -38,6 +38,36 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
         }
     };
 
+    const trackWhatsApp = () => {
+        // @ts-ignore
+        if (typeof gtag !== 'undefined') {
+            // @ts-ignore
+            gtag('event', 'mobilmenu_whatsapp', {
+                click_location: 'mobile_menu',
+            });
+        }
+    };
+
+    const trackMobileCall = () => {
+        // @ts-ignore
+        if (typeof gtag !== 'undefined') {
+            // @ts-ignore
+            gtag('event', 'mobilmenu_acil_yolyardim', {
+                click_location: 'mobile_menu',
+            });
+        }
+    };
+
+    const trackLocation = () => {
+        // @ts-ignore
+        if (typeof gtag !== 'undefined') {
+            // @ts-ignore
+            gtag('event', 'header_konum_tiklandi', {
+                click_location: 'header_desktop',
+            });
+        }
+    };
+
     return (
         <header className="fixed inset-x-0 top-0 z-50 transition-all duration-300 h-16 sm:h-20">
             <nav className={`w-full h-full transition-all duration-300 ${showGlass
@@ -76,6 +106,7 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-6">
                         <a
                             href="tel:+905332081400"
+                            onClick={trackCall}
                             className={`flex items-center gap-2 text-xs font-bold transition-all duration-500 ${isDarkText ? 'text-charcoal-500' : 'text-white/60'}`}
                         >
                             <Phone className={`w-3.5 h-3.5 ${isDarkText ? 'text-brand-default' : 'text-white'}`} />
@@ -83,13 +114,13 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
                         </a>
 
                         <a
-                            href="tel:05332081400"
-                            onClick={trackCall}
-                            className={`px-6 py-2 rounded-lg text-xs font-black transition-all duration-300 uppercase tracking-widest ${isDarkText
-                                ? 'bg-brand-default text-white hover:bg-brand-hover'
-                                : 'bg-brand-default text-white shadow-premium hover:bg-brand-hover'}`}
+                            href="https://google.com/maps/place//data=!4m2!3m1!1s0x14cadc151e770faf:0x41c5cb833bbb8a29?sa=X&ved=1t:8290&ictx=111"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={trackLocation}
+                            className={`px-6 py-2 rounded-lg text-xs font-black transition-all duration-300 uppercase tracking-widest bg-brand-default text-white hover:bg-brand-hover shadow-premium`}
                         >
-                            Fiyat Al
+                            Konum
                         </a>
                     </div>
 
@@ -140,7 +171,7 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
                             <div className="py-6 space-y-4">
                                 <a
                                     href="tel:+905332081400"
-                                    onClick={trackCall}
+                                    onClick={trackMobileCall}
                                     className="w-full flex items-center justify-center gap-3 rounded-xl bg-brand-default px-6 py-4 text-lg font-bold text-white shadow-premium"
                                 >
                                     <Phone className="w-6 h-6" />
@@ -150,6 +181,7 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
                                     href="https://wa.me/905332081400?text=Fiyat teklifi almak istiyorum."
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={trackWhatsApp}
                                     className="w-full flex items-center justify-center gap-3 rounded-xl bg-charcoal-800 px-6 py-4 text-lg font-bold text-white shadow-premium"
                                 >
                                     <MessageCircle className="w-6 h-6" />

@@ -1,0 +1,19 @@
+/* ExpertiseStackSection.module.css - Isolated styles for sticky stacking */
+
+.stackContainer {
+    /* Create a new stacking context and ensure no overflow issues */
+    position: relative;
+    isolation: isolate;
+}
+
+.stackCard {
+    position: sticky;
+    width: 100%;
+}
+
+/* Ensure sticky works by creating proper scroll context */
+.stackWrapper {
+    position: relative;
+    /* This creates the scroll context needed for sticky */
+    contain: layout;
+}

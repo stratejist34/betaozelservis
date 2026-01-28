@@ -108,8 +108,10 @@
 
 html,
 body {
-  max-width: 100vw;
+  max-width: 100%;
   overflow-x: hidden;
+  /* Standard webapp behavior to prevent horizontal scrollbars */
+  /* overflow-y removed to let window handle scroll naturally */
   background: #121212;
   color: #f4f4f5;
   font-family: var(--font-sans);

@@ -8,27 +8,30 @@ import ServicesSection from "@/components/ServicesSection";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import SectionDivider from "@/components/SectionDivider";
-import ExpertiseStackSection from "@/components/ExpertiseStackSection";
+import PremiumServices from "@/components/PremiumServices";
+import MaintenancePackages from "@/components/MaintenancePackages";
+
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="min-h-screen overflow-visible">
       <Header />
-      <div className="flex-grow">
-        <HeroSection />
-        <SectionDivider />
-        <ServiceWorkflow />
-        <SectionDivider />
-        <ExpertiseStackSection />
-        <SilentAssurance />
-        <SectionDivider />
-        <WhyUs />
-        <SectionDivider />
-        <ReviewsSection />
-        <SectionDivider />
-        <ServicesSection />
-        <SectionDivider />
-      </div>
+      <HeroSection />
+      <SectionDivider />
+      <ServiceWorkflow />
+      <SectionDivider />
+      <PremiumServices />
+      <SectionDivider />
+      <SilentAssurance />
+      <SectionDivider />
+      <WhyUs />
+      <SectionDivider />
+      <ReviewsSection />
+      <SectionDivider />
+      <MaintenancePackages />
+      <SectionDivider />
+      <ServicesSection />
+      <SectionDivider />
       <Footer />
       <FloatingActions />
     </main>

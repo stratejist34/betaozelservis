@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { HelpCircle, ChevronRight, Phone, MessageCircle, FlipHorizontal as Photo, CheckCircle2, AlertCircle } from 'lucide-react';
+import { HelpCircle, ChevronRight, Phone, MessageCircle, FlipHorizontal as Photo, CheckCircle2, AlertCircle, Truck, ShieldCheck, Zap } from 'lucide-react';
 
 declare global {
     interface Window {
@@ -10,7 +10,7 @@ declare global {
     }
 }
 
-export default function BatteryQuickSelector() {
+export default function BatteryQuickSelector({ showTrustBadges = false }: { showTrustBadges?: boolean }) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [selection, setSelection] = useState<string | null>(searchParams.get('startStop'));
@@ -37,25 +37,6 @@ export default function BatteryQuickSelector() {
         }
     }, [searchParams]);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        trackEvent('aku_karar_gorundu');
-                        observer.disconnect();
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
-
-        if (containerRef.current) {
-            observer.observe(containerRef.current);
-        }
-
-        return () => observer.disconnect();
-    }, []);
 
     const handleSelection = (id: string) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -102,7 +83,7 @@ export default function BatteryQuickSelector() {
     };
 
     return (
-        <section className="py-24 relative z-20 -mt-16" ref={containerRef}>
+        <section className="pt-12 pb-24 relative z-20 -mt-8" ref={containerRef}>
             <div className="max-w-4xl mx-auto px-4">
                 <div className="bg-black/80 backdrop-blur-2xl border border-white/10 rounded-[3rem] sm:rounded-[4rem] p-8 sm:p-16 shadow-[0_30px_100px_rgba(0,0,0,0.5)] relative overflow-hidden">
                     {/* Interior Decorative Grid */}
@@ -123,8 +104,8 @@ export default function BatteryQuickSelector() {
                         </button>
                     </div>
 
-                    {/* Quick Selection Buttons - Forced Grid to fit all mobile screens */}
-                    <div className="grid grid-cols-3 gap-1.5 sm:gap-6 relative z-10 mb-10 pb-0">
+                    {/* Quick Selection Buttons - Ultra-compact for 320px screens */}
+                    <div className="grid grid-cols-3 gap-1 sm:gap-6 relative z-10 mb-10 pb-0 px-0">
                         {[
                             { id: 'yes', label: 'VAR', desc: 'START-STOP', color: 'border-white/5' },
                             { id: 'no', label: 'YOK', desc: 'KLASİK', color: 'border-white/5' },
@@ -133,15 +114,15 @@ export default function BatteryQuickSelector() {
                             <button
                                 key={opt.id}
                                 onClick={() => handleSelection(opt.id)}
-                                className={`flex-1 min-w-0 group relative p-1.5 sm:p-8 rounded-lg sm:rounded-[2rem] border transition-all text-center flex flex-col items-center justify-center gap-0.5 sm:gap-1 ${selection === opt.id
-                                    ? 'bg-brand-default/20 border-brand-default shadow-[0_0_15px_rgba(198,31,58,0.2)]'
+                                className={`flex-1 min-w-0 group relative p-4 py-8 sm:p-12 sm:py-16 rounded-xl sm:rounded-[2.5rem] border transition-all text-center flex flex-col items-center justify-center gap-1 sm:gap-2 ${selection === opt.id
+                                    ? 'bg-brand-default/20 border-brand-default shadow-[0_0_20px_rgba(198,31,58,0.3)]'
                                     : `${opt.color} bg-white/5 hover:border-white/30 hover:bg-white/10`
                                     }`}
                             >
-                                <span className={`text-[8px] sm:text-sm font-black tracking-tighter sm:tracking-[0.2em] leading-tight ${selection === opt.id ? 'text-white' : 'text-charcoal-100'}`}>
+                                <span className={`text-[11px] sm:text-2xl font-black tracking-tighter sm:tracking-[0.2em] leading-tight ${selection === opt.id ? 'text-white' : 'text-charcoal-50'}`}>
                                     {opt.label}
                                 </span>
-                                <span className={`text-[6px] sm:text-[9px] font-black uppercase tracking-tighter sm:tracking-widest opacity-70 ${selection === opt.id ? 'text-brand-default' : 'text-charcoal-400'}`}>
+                                <span className={`text-[8px] sm:text-xs font-black uppercase tracking-tighter sm:tracking-[0.1em] opacity-70 ${selection === opt.id ? 'text-brand-default' : 'text-charcoal-400'}`}>
                                     {opt.desc}
                                 </span>
                             </button>
@@ -197,7 +178,7 @@ export default function BatteryQuickSelector() {
                         </a>
 
                         {/* Secondary Actions - Silent Butons (Jakob's Law) */}
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-10">
                             <a
                                 href={getWhatsAppUrl('photo')}
                                 target="_blank"
@@ -235,6 +216,29 @@ export default function BatteryQuickSelector() {
                                 </div>
                             </a>
                         </div>
+
+                        {showTrustBadges && (
+                            <div className="pt-10 border-t border-white/5 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                                <p className="text-xs sm:text-sm text-charcoal-300 max-w-xl mx-auto leading-relaxed font-bold opacity-80 mb-8 regular text-center">
+                                    Tuzla'da 20 yıllık teknik tecrübemizle, aracınızın genetiğine en uygun Varta akü seçimini yapıyoruz.
+                                    Teyit edilmemiş akü, riskli aküdür.
+                                </p>
+                                <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+                                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 shadow-sm">
+                                        <Truck className="w-3.5 h-3.5 text-brand-default" />
+                                        <span className="text-[9px] sm:text-xs font-black text-charcoal-50 uppercase tracking-widest">Yerinde Servis</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 shadow-sm">
+                                        <ShieldCheck className="w-3.5 h-3.5 text-brand-default" />
+                                        <span className="text-[9px] sm:text-xs font-black text-charcoal-50 uppercase tracking-widest">Garanti Dahil</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 shadow-sm">
+                                        <Zap className="w-3.5 h-3.5 text-brand-default" />
+                                        <span className="text-[9px] sm:text-xs font-black text-charcoal-50 uppercase tracking-widest">Kodlama Desteği</span>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
 

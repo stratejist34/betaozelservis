@@ -68,6 +68,7 @@ export default async function BlogPage() {
                                         alt={post.title}
                                         fill
                                         className="object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.9] group-hover:brightness-100"
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 400px"
                                     />
                                     <div className="absolute top-5 left-5">
                                         {post.categories[0] && (

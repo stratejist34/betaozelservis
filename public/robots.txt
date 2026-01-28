@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://betaozelservis.com
+
+# Sitemaps
+Sitemap: https://betaozelservis.com/sitemap.xml
+Sitemap: https://betaozelservis.com/server-sitemap.xml

@@ -101,6 +101,7 @@ export default async function CategoryArchivePage({ params }: Props) {
                                         alt={post.title}
                                         fill
                                         className="object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.9] group-hover:brightness-100"
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 400px"
                                     />
                                     <div className="absolute top-6 left-6">
                                         <span className="bg-white/90 backdrop-blur-md text-charcoal-900 text-[10px] font-black px-4 py-2 rounded-xl uppercase tracking-widest border border-white/20 shadow-xl">

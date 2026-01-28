@@ -40,7 +40,7 @@ export default function HeroSection() {
                         priority
                         fetchPriority="high"
                         quality={75}
-                        sizes="(max-width: 768px) 100vw, 100vw"
+                        sizes="(max-width: 1440px) 98vw, 1440px"
                     />
 
                     {/* Technical Scrims - Depth & Contrast */}
@@ -132,6 +132,7 @@ export default function HeroSection() {
                                     alt={brand.name}
                                     fill
                                     className="object-contain invert brightness-0 hover:filter-none transition-all"
+                                    sizes="48px"
                                 />
                             </div>
                         ))}
