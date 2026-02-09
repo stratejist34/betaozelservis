@@ -2,6 +2,9 @@
 
 import { Phone, MessageCircle } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { trackPhoneClick, trackWhatsappClick } from '@/lib/analytics';
+
+import { useServiceArea } from '@/context/ServiceAreaContext';
 
 interface ScientificCTAProps {
     variant?: 'inline' | 'bottom' | 'soft';
@@ -9,20 +12,18 @@ interface ScientificCTAProps {
 
 export default function ScientificCTA({ variant = 'inline' }: ScientificCTAProps) {
     const revealRef = useScrollReveal();
+    const { verifyAndAction } = useServiceArea();
 
-    const trackAction = (action: string) => {
-        // @ts-ignore
-        if (typeof gtag !== 'undefined') {
-            const eventName = variant === 'soft'
-                ? (action === 'phone' ? 'blog_soft_cta_tel' : 'blog_soft_cta_whatsapp')
-                : (action === 'phone' ? 'blog_focus_cta_tel' : 'blog_focus_cta_whatsapp');
-
-            // @ts-ignore
-            gtag('event', eventName, {
-                variant: variant,
-                action_type: action
-            });
-        }
+    const handleAction = (action: 'phone' | 'whatsapp') => {
+        verifyAndAction(() => {
+            if (action === 'phone') {
+                trackPhoneClick({ source: 'blog_mid', page_type: 'blog' });
+                window.location.href = 'tel:+905332081400';
+            } else {
+                trackWhatsappClick({ source: 'blog_mid', page_type: 'blog' });
+                window.open('https://wa.me/905332081400?text=Blog yazısı üzerinden ulaşıyorum, bilgi almak istiyorum.', '_blank');
+            }
+        });
     };
 
     if (variant === 'soft') {
@@ -36,24 +37,20 @@ export default function ScientificCTA({ variant = 'inline' }: ScientificCTAProps
                         Bu bilgiler geneldir. Aracınızın Şasi / motor kodu ile net fiyat aralığını doğrularız.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                        <a
-                            href="tel:+905332081400"
-                            onClick={() => trackAction('phone')}
+                        <button
+                            onClick={() => handleAction('phone')}
                             className="flex items-center justify-center gap-2 px-6 py-3 border-2 border-charcoal-900 text-charcoal-900 bg-transparent rounded-xl text-xs font-bold transition-all hover:bg-charcoal-900 hover:text-white active:scale-95 uppercase tracking-widest"
                         >
                             <Phone className="w-4 h-4" />
                             0533 208 14 00
-                        </a>
-                        <a
-                            href="https://wa.me/905332081400?text=Blog yazısı üzerinden ulaşıyorum, bilgi almak istiyorum."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => trackAction('whatsapp')}
+                        </button>
+                        <button
+                            onClick={() => handleAction('whatsapp')}
                             className="flex items-center justify-center gap-2 px-6 py-3 bg-brand-default text-white rounded-xl text-xs font-bold transition-all hover:bg-brand-hover active:scale-95 uppercase tracking-widest"
                         >
                             <MessageCircle className="w-4 h-4" />
                             WhatsApp Danışma
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -74,24 +71,20 @@ export default function ScientificCTA({ variant = 'inline' }: ScientificCTAProps
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                    <a
-                        href="tel:+905332081400"
-                        onClick={() => trackAction('phone')}
+                    <button
+                        onClick={() => handleAction('phone')}
                         className="btn-gradient-red flex items-center justify-center gap-3 px-8 py-4 text-white rounded-xl text-base font-bold transition-all transform hover:-translate-y-1 active:scale-95 shadow-xl group"
                     >
                         <Phone className="w-5 h-5 icon-ring" />
                         0533 208 14 00
-                    </a>
-                    <a
-                        href="https://wa.me/905332081400?text=Ücretsiz fiyat teklifi almak istiyorum."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => trackAction('whatsapp')}
+                    </button>
+                    <button
+                        onClick={() => handleAction('whatsapp')}
                         className="btn-gradient-green flex items-center justify-center gap-3 px-8 py-4 text-white rounded-xl text-base font-bold transition-all transform hover:-translate-y-1 active:scale-95 shadow-xl group"
                     >
                         <MessageCircle className="w-5 h-5 icon-bounce" />
                         Ücretsiz Fiyat Al
-                    </a>
+                    </button>
                 </div>
 
                 <p className="text-[10px] font-bold text-slate-400 mt-8 uppercase tracking-[0.3em] opacity-60">

@@ -61,8 +61,19 @@ const services = [
     },
 ];
 
+import { trackWhatsappClick } from '@/lib/analytics';
+import { useServiceArea } from '@/context/ServiceAreaContext';
+
 function ServiceCard({ service }: { service: any }) {
     const revealRef = useScrollReveal();
+    const { verifyAndAction } = useServiceArea();
+
+    const handleWhatsappClick = () => {
+        verifyAndAction(() => {
+            trackWhatsappClick({ source: 'services_section', page_type: 'home' });
+            window.open(`https://wa.me/905332081400?text=${encodeURIComponent(`${service.title} hakkında randevu almak istiyorum.`)}`, '_blank');
+        });
+    };
 
     return (
         <div
@@ -90,15 +101,13 @@ function ServiceCard({ service }: { service: any }) {
 
             <div className="relative z-10 mt-auto flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
-                    <a
-                        href={`https://wa.me/905332081400?text=${encodeURIComponent(`${service.title} hakkında randevu almak istiyorum.`)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <button
+                        onClick={handleWhatsappClick}
                         className="bg-charcoal-800/50 hover:bg-brand-default border border-charcoal-500 hover:border-brand-default flex items-center justify-center gap-2 py-4 text-white rounded-xl text-sm font-black uppercase tracking-widest transition-all transform hover:scale-[1.02] active:scale-[0.98] w-full group/btn"
                     >
                         <MessageCircle className="w-4 h-4 transition-transform group-hover/btn:scale-110" />
                         {service.ctaText}
-                    </a>
+                    </button>
                 </div>
                 <Link
                     href={service.href}

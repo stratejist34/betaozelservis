@@ -2,8 +2,12 @@
 
 import Image from 'next/image';
 import { Gauge, Shield, Zap, CircleDot, Activity, ArrowRight } from 'lucide-react';
+import { trackPhoneClick, trackWhatsappClick } from '@/lib/analytics';
+
+import { useServiceArea } from '@/context/ServiceAreaContext';
 
 export default function MaintenancePackages() {
+    const { verifyAndAction } = useServiceArea();
     return (
         <section className="py-24 relative z-10 bg-beta-silver-ultra overflow-hidden">
             {/* Visual Texture Wrapper */}
@@ -171,24 +175,31 @@ export default function MaintenancePackages() {
                 </div>
 
                 {/* 6) FINAL CTA - The Resolution */}
-                <div className="flex flex-col items-center">
-                    <a
-                        href={`https://wa.me/905332081400?text=${encodeURIComponent('Aracım için bakım fiyatı almak istiyorum Marka/Model: ')}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                <div className="flex flex-col items-center w-full max-w-md mx-auto gap-4">
+                    <button
                         onClick={() => {
-                            if (typeof window !== 'undefined' && (window as any).gtag) {
-                                (window as any).gtag('event', 'anasayfa_whatsp_bakim_al');
-                            }
+                            verifyAndAction(() => {
+                                trackPhoneClick({ source: 'price_table', page_type: 'service' });
+                                window.location.href = 'tel:+905332081400';
+                            });
                         }}
-                        className="bg-charcoal-950 hover:bg-black text-white px-12 lg:px-20 py-5 lg:py-6 rounded-full text-xl lg:text-2xl font-black shadow-2xl transition-all hover:scale-[1.05] active:scale-95 flex items-center gap-4 group/cta"
+                        className="w-full bg-[#C4122F] hover:bg-[#a50f27] text-white py-5 rounded-[18px] text-xl font-black uppercase tracking-widest shadow-2xl shadow-red-900/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 group"
                     >
-                        Net Fiyat Al <ArrowRight className="w-6 h-6 group-hover/cta:translate-x-2 transition-transform text-brand-default" />
-                    </a>
-                    <p className="mt-8 flex items-center gap-3 text-charcoal-600 font-bold text-xs uppercase tracking-[0.2em]">
-                        <span className="w-2 h-2 rounded-full bg-brand-default animate-pulse" />
-                        Telefonda ne konuştuysak, serviste de odur.
-                    </p>
+                        HEMEN ARA <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                    </button>
+
+                    <button
+                        onClick={() => {
+                            verifyAndAction(() => {
+                                trackWhatsappClick({ source: 'price_table', page_type: 'service' });
+                                window.open(`https://wa.me/905332081400?text=${encodeURIComponent('Aracım için bakım fiyatı almak istiyorum Marka/Model: ')}`, '_blank');
+                            });
+                        }}
+                        className="w-full bg-[#0EA76B] hover:bg-[#0c8e5b] text-white py-3 rounded-[14px] text-sm font-black uppercase tracking-wider shadow-lg shadow-emerald-900/10 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2"
+                    >
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                        WhatsApp ile Fiyat Al
+                    </button>
                 </div>
             </div>
         </section>

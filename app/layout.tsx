@@ -3,6 +3,8 @@ import { Bai_Jamjuree } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import GlobalStickyBar from "@/components/GlobalStickyBar";
+import { ServiceAreaProvider } from "@/context/ServiceAreaContext";
 
 const baiJamjuree = Bai_Jamjuree({
   subsets: ["latin", "latin-ext"],
@@ -68,9 +70,9 @@ export default function RootLayout({
         {/* GA4 and Google Ads */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -80,7 +82,10 @@ export default function RootLayout({
           `}
         </Script>
 
-        {children}
+        <ServiceAreaProvider>
+          {children}
+          <GlobalStickyBar />
+        </ServiceAreaProvider>
         <Analytics />
       </body>
     </html>

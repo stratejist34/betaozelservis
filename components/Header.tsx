@@ -12,9 +12,25 @@ const navigation = [
     { name: 'İletişim', href: '/iletisim' },
 ];
 
+import { usePathname } from 'next/navigation';
+import { trackPhoneClick, trackWhatsappClick } from '@/lib/analytics';
+
+import { useServiceArea } from '@/context/ServiceAreaContext';
+
 export default function Header({ isLightPage = false, forceSilver = false }: { isLightPage?: boolean, forceSilver?: boolean }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const pathname = usePathname();
+    const { verifyAndAction } = useServiceArea();
+
+    const getPageType = (): 'home' | 'service' | 'blog' | 'contact' | 'price' | 'other' => {
+        if (pathname === '/') return 'home';
+        if (pathname?.includes('/hizmetler') || pathname?.includes('/akuler')) return 'service';
+        if (pathname?.includes('/blog')) return 'blog';
+        if (pathname?.includes('/iletisim')) return 'contact';
+        if (pathname?.includes('fiyat')) return 'price';
+        return 'other';
+    };
 
     const showGlass = scrolled || isLightPage || forceSilver;
     const isDarkText = showGlass;
@@ -27,43 +43,32 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const trackCall = () => {
-        // @ts-ignore
-        if (typeof gtag !== 'undefined') {
-            // @ts-ignore
-            gtag('event', 'usta_arama', {
-                phone_number: '05332081400',
-                click_location: 'header',
-            });
-        }
+    const handleCall = () => {
+        verifyAndAction(() => {
+            trackPhoneClick({ source: 'header', page_type: getPageType() });
+            window.location.href = 'tel:+905332081400';
+        });
     };
 
-    const trackWhatsApp = () => {
-        // @ts-ignore
-        if (typeof gtag !== 'undefined') {
-            // @ts-ignore
-            gtag('event', 'mobilmenu_whatsapp', {
-                click_location: 'mobile_menu',
-            });
-        }
+    const handleWhatsApp = () => {
+        verifyAndAction(() => {
+            trackWhatsappClick({ source: 'header_mobile_menu', page_type: getPageType() });
+            window.open('https://wa.me/905332081400?text=Fiyat teklifi almak istiyorum.', '_blank');
+        });
     };
 
-    const trackMobileCall = () => {
-        // @ts-ignore
-        if (typeof gtag !== 'undefined') {
-            // @ts-ignore
-            gtag('event', 'mobilmenu_acil_yolyardim', {
-                click_location: 'mobile_menu',
-            });
-        }
+    const handleMobileCall = () => {
+        verifyAndAction(() => {
+            trackPhoneClick({ source: 'header_mobile_menu', page_type: getPageType() });
+            window.location.href = 'tel:+905332081400';
+        });
     };
 
     const trackLocation = () => {
-        // @ts-ignore
-        if (typeof gtag !== 'undefined') {
-            // @ts-ignore
-            gtag('event', 'header_konum_tiklandi', {
-                click_location: 'header_desktop',
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+            (window as any).gtag('event', 'location_click', {
+                source: 'header',
+                page_type: getPageType()
             });
         }
     };
@@ -71,7 +76,7 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
     return (
         <header className="fixed inset-x-0 top-0 z-50 transition-all duration-300 h-16 sm:h-20">
             <nav className={`w-full h-full transition-all duration-300 ${showGlass
-                ? 'bg-gradient-to-b from-[#F2F4F7] via-[#FFFFFF] to-[#E2E5E9] border-b border-black/10 shadow-lg'
+                ? 'bg-white/80 backdrop-blur-md border-b border-white/20 shadow-sm supports-[backdrop-filter]:bg-white/60'
                 : 'bg-transparent'}`} aria-label="Global">
                 {/* Metallic Sheen Accent */}
                 {showGlass && (
@@ -104,14 +109,13 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
 
                     {/* Desktop Utilities & CTA - Right */}
                     <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-6">
-                        <a
-                            href="tel:+905332081400"
-                            onClick={trackCall}
+                        <button
+                            onClick={handleCall}
                             className={`flex items-center gap-2 text-xs font-bold transition-all duration-500 ${isDarkText ? 'text-charcoal-500' : 'text-white/60'}`}
                         >
                             <Phone className={`w-3.5 h-3.5 ${isDarkText ? 'text-brand-default' : 'text-white'}`} />
                             <span className={isDarkText ? 'text-charcoal-900' : 'text-white'}>0 (533) 208 14 00</span>
-                        </a>
+                        </button>
 
                         <a
                             href="https://google.com/maps/place//data=!4m2!3m1!1s0x14cadc151e770faf:0x41c5cb833bbb8a29?sa=X&ved=1t:8290&ictx=111"
@@ -170,24 +174,20 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
                                 ))}
                             </div>
                             <div className="py-6 space-y-4">
-                                <a
-                                    href="tel:+905332081400"
-                                    onClick={trackMobileCall}
+                                <button
+                                    onClick={handleMobileCall}
                                     className="w-full flex items-center justify-center gap-3 rounded-xl bg-brand-default px-6 py-4 text-lg font-bold text-white shadow-premium"
                                 >
                                     <Phone className="w-6 h-6" />
                                     Acil Yol Yardım
-                                </a>
-                                <a
-                                    href="https://wa.me/905332081400?text=Fiyat teklifi almak istiyorum."
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={trackWhatsApp}
+                                </button>
+                                <button
+                                    onClick={handleWhatsApp}
                                     className="w-full flex items-center justify-center gap-3 rounded-xl bg-charcoal-800 px-6 py-4 text-lg font-bold text-white shadow-premium"
                                 >
                                     <MessageCircle className="w-6 h-6" />
                                     WhatsApp Fiyat Al
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

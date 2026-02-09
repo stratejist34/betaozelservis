@@ -1,9 +1,14 @@
 'use client';
 
-import { ShieldCheck, Truck, Zap } from 'lucide-react';
+import { ShieldCheck, Truck, Zap, Phone } from 'lucide-react';
 import Image from 'next/image';
+import { trackPhoneClick, trackWhatsappClick } from '@/lib/analytics';
+
+import { useServiceArea } from '@/context/ServiceAreaContext';
 
 export default function BatteryHero({ compact = false }: { compact?: boolean }) {
+    const { verifyAndAction } = useServiceArea();
+
     return (
         <section className={`${compact ? 'pt-8 pb-4' : 'py-16'} relative z-10 border-b border-white/5`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,22 +44,30 @@ export default function BatteryHero({ compact = false }: { compact?: boolean }) 
                 </div>
 
                 {!compact && (
-                    <div className="mt-10">
-                        {/* Trust Chips - Premium Style */}
-                        <div className="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6">
-                            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
-                                <Truck className="w-4 h-4 text-brand-default" />
-                                <span className="text-[10px] sm:text-xs font-black text-charcoal-50 uppercase tracking-widest">Yerinde Servis</span>
-                            </div>
-                            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
-                                <ShieldCheck className="w-4 h-4 text-brand-default" />
-                                <span className="text-[10px] sm:text-xs font-black text-charcoal-50 uppercase tracking-widest">Garanti Dahil</span>
-                            </div>
-                            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
-                                <Zap className="w-4 h-4 text-brand-default" />
-                                <span className="text-[10px] sm:text-xs font-black text-charcoal-50 uppercase tracking-widest">Kodlama Desteği</span>
-                            </div>
-                        </div>
+                    <div className="mt-10 flex flex-col sm:flex-row gap-6 items-center justify-center md:justify-start">
+                        <button
+                            onClick={() => {
+                                verifyAndAction(() => {
+                                    trackPhoneClick({ source: 'hero', page_type: 'service' });
+                                    window.location.href = 'tel:+905332081400';
+                                });
+                            }}
+                            className="bg-[#C4122F] hover:bg-[#a50f27] text-white px-8 py-4 rounded-xl text-base font-black uppercase tracking-widest transition-all hover:scale-[1.05] active:scale-95 shadow-xl shadow-red-900/20 flex items-center gap-3 group"
+                        >
+                            <Phone className="w-5 h-5 fill-current" />
+                            HEMEN ARA
+                        </button>
+                        <button
+                            onClick={() => {
+                                verifyAndAction(() => {
+                                    trackWhatsappClick({ source: 'hero', page_type: 'service' });
+                                    window.open('https://wa.me/905332081400?text=Akü%20fiyatı%20almak%20istiyorum.', '_blank');
+                                });
+                            }}
+                            className="text-white/80 hover:text-white text-sm font-bold border-b border-white/20 hover:border-white transition-all pb-0.5"
+                        >
+                            WhatsApp ile yazmak ister misiniz?
+                        </button>
                     </div>
                 )}
             </div>

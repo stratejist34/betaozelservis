@@ -3,8 +3,38 @@
 import Link from 'next/link';
 import { Phone, Mail, Facebook, Instagram, Clock, MapPin } from 'lucide-react';
 
+import { usePathname } from 'next/navigation';
+import { trackPhoneClick, trackWhatsappClick } from '@/lib/analytics';
+
+import { useServiceArea } from '@/context/ServiceAreaContext';
+
 export default function Footer() {
     const currentYear = new Date().getFullYear();
+    const pathname = usePathname();
+    const { verifyAndAction } = useServiceArea();
+
+    const getPageType = (): 'home' | 'service' | 'blog' | 'contact' | 'price' | 'other' => {
+        if (pathname === '/') return 'home';
+        if (pathname?.includes('/hizmetler') || pathname?.includes('/akuler')) return 'service';
+        if (pathname?.includes('/blog')) return 'blog';
+        if (pathname?.includes('/iletisim')) return 'contact';
+        if (pathname?.includes('fiyat')) return 'price';
+        return 'other';
+    };
+
+    const handleWhatsapp = () => {
+        verifyAndAction(() => {
+            trackWhatsappClick({ source: 'footer', page_type: getPageType() });
+            window.open('https://wa.me/905332081400?text=Randevu talebi oluşturmak istiyorum.', '_blank');
+        });
+    };
+
+    const handleCall = () => {
+        verifyAndAction(() => {
+            trackPhoneClick({ source: 'footer', page_type: getPageType() });
+            window.location.href = 'tel:+905332081400';
+        });
+    };
 
     return (
         <footer className="bg-charcoal-900 text-charcoal-200 relative overflow-hidden noise-overlay">
@@ -14,21 +44,12 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
                 {/* Tertiary CTA - Randevu Talebi Oluştur */}
                 <div className="mb-20 text-center">
-                    <a
-                        href="https://wa.me/905332081400?text=Randevu talebi oluşturmak istiyorum."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => {
-                            // @ts-ignore
-                            if (typeof gtag !== 'undefined') {
-                                // @ts-ignore
-                                gtag('event', 'footer_randevu_talebi_tiklandi');
-                            }
-                        }}
+                    <button
+                        onClick={handleWhatsapp}
                         className="inline-flex items-center gap-4 bg-charcoal-800/40 hover:bg-brand-default border border-charcoal-600 hover:border-brand-default px-12 py-5 rounded-2xl text-sm font-black uppercase tracking-[0.3em] text-white transition-all group scale-95 hover:scale-100"
                     >
                         Randevu Talebi Oluştur
-                    </a>
+                    </button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
@@ -90,7 +111,7 @@ export default function Footer() {
                                 </div>
                                 <div className="text-sm">
                                     <p className="text-[10px] uppercase font-black text-charcoal-500 tracking-widest">Acil Yol Yardım</p>
-                                    <a href="tel:+905332081400" className="text-charcoal-50 font-black text-lg hover:text-brand-default transition-all">0533 208 14 00</a>
+                                    <button onClick={handleCall} className="text-charcoal-50 font-black text-lg hover:text-brand-default transition-all">0533 208 14 00</button>
                                 </div>
                             </li>
                             <li className="flex items-center gap-4">

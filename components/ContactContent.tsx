@@ -4,8 +4,34 @@ import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Phone, MessageCircle, MapPin, Clock, Navigation } from 'lucide-react';
+import { trackPhoneClick, trackWhatsappClick } from '@/lib/analytics';
+
+import { useServiceArea } from '@/context/ServiceAreaContext';
 
 export default function ContactContent() {
+    const { verifyAndAction } = useServiceArea();
+
+    const handleServiceCall = () => {
+        verifyAndAction(() => {
+            trackPhoneClick({ source: 'contact', page_type: 'contact' });
+            window.location.href = 'tel:+905332081400';
+        });
+    };
+
+    const handleLandlineCall = () => {
+        verifyAndAction(() => {
+            trackPhoneClick({ source: 'contact', page_type: 'contact' });
+            window.location.href = 'tel:+902163922259';
+        });
+    };
+
+    const handleWhatsapp = () => {
+        verifyAndAction(() => {
+            trackWhatsappClick({ source: 'contact', page_type: 'contact' });
+            window.open('https://wa.me/905332081400', '_blank');
+        });
+    };
+
     return (
         <main className="min-h-screen flex flex-col bg-[#F5F6F7]">
             <Header />
@@ -31,66 +57,43 @@ export default function ContactContent() {
 
                         {/* Horizontal Cards - Compact */}
                         <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-                            <div className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm">
-                                <div className="w-10 h-10 bg-red-500/5 rounded-xl flex items-center justify-center text-red-500 shrink-0">
+                            <div className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm relative group overflow-hidden">
+                                <button onClick={handleServiceCall} className="absolute inset-0 z-10 w-full h-full cursor-pointer" aria-label="Ara" />
+                                <div className="w-10 h-10 bg-red-500/5 rounded-xl flex items-center justify-center text-red-500 shrink-0 pointer-events-none">
                                     <Phone className="w-5 h-5" />
                                 </div>
-                                <div>
+                                <div className="pointer-events-none">
                                     <h3 className="text-[8px] font-black text-red-600 uppercase tracking-widest mb-0.5">SERVİS & ACİL</h3>
-                                    <a
-                                        href="tel:+905332081400"
-                                        onClick={() => {
-                                            if (typeof window !== 'undefined' && (window as any).gtag) {
-                                                (window as any).gtag('event', 'iletisim_arama_mobil');
-                                            }
-                                        }}
-                                        className="text-lg font-black text-gray-900 block leading-none"
-                                    >
+                                    <span className="text-lg font-black text-gray-900 block leading-none">
                                         0533 208 14 00
-                                    </a>
+                                    </span>
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm">
-                                <div className="w-10 h-10 bg-brand-default/5 rounded-xl flex items-center justify-center text-brand-default shrink-0">
+                            <div className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm relative group overflow-hidden">
+                                <button onClick={handleLandlineCall} className="absolute inset-0 z-10 w-full h-full cursor-pointer" aria-label="Ara" />
+                                <div className="w-10 h-10 bg-brand-default/5 rounded-xl flex items-center justify-center text-brand-default shrink-0 pointer-events-none">
                                     <Phone className="w-5 h-5" />
                                 </div>
-                                <div>
+                                <div className="pointer-events-none">
                                     <h3 className="text-[8px] font-black text-brand-default uppercase tracking-widest mb-0.5">RANDEVU & BİLGİ</h3>
-                                    <a
-                                        href="tel:+902163922259"
-                                        onClick={() => {
-                                            if (typeof window !== 'undefined' && (window as any).gtag) {
-                                                (window as any).gtag('event', 'iletisim_arama_sabit');
-                                            }
-                                        }}
-                                        className="text-lg font-black text-gray-900 block leading-none"
-                                    >
+                                    <span className="text-lg font-black text-gray-900 block leading-none">
                                         0216 392 22 59
-                                    </a>
+                                    </span>
                                 </div>
                             </div>
 
                             <div className="flex items-center gap-4 p-5 bg-charcoal-900 rounded-2xl shadow-lg overflow-hidden relative group">
+                                <button onClick={handleWhatsapp} className="absolute inset-0 z-20 w-full h-full cursor-pointer" aria-label="WhatsApp" />
                                 <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/10 blur-xl pointer-events-none" />
-                                <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 shrink-0 relative z-10">
+                                <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 shrink-0 relative z-10 pointer-events-none">
                                     <MessageCircle className="w-5 h-5" />
                                 </div>
-                                <div className="relative z-10">
+                                <div className="relative z-10 pointer-events-none">
                                     <h3 className="text-[8px] font-black text-emerald-500 uppercase tracking-widest mb-0.5">WHATSAPP</h3>
-                                    <a
-                                        href="https://wa.me/905332081400"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        onClick={() => {
-                                            if (typeof window !== 'undefined' && (window as any).gtag) {
-                                                (window as any).gtag('event', 'iletisim_whatsapp_tiklandi');
-                                            }
-                                        }}
-                                        className="text-lg font-black text-white block leading-none"
-                                    >
+                                    <span className="text-lg font-black text-white block leading-none">
                                         0533 208 14 00
-                                    </a>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -114,11 +117,6 @@ export default function ContactContent() {
                                         href="https://maps.google.com/maps?q=Beta%20%C3%B6zel%20servis"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        onClick={() => {
-                                            if (typeof window !== 'undefined' && (window as any).gtag) {
-                                                (window as any).gtag('event', 'iletisim_harita_navigasyon');
-                                            }
-                                        }}
                                         className="flex items-center justify-between text-brand-default font-black uppercase text-[9px] tracking-widest"
                                     >
                                         NAVİGASYONU BAŞLAT <Navigation className="w-4 h-4" />
@@ -142,22 +140,12 @@ export default function ContactContent() {
                                 <div className="flex gap-3">
                                     <a
                                         href="https://maps.google.com/maps?q=Beta%20%C3%B6zel%20servis"
-                                        onClick={() => {
-                                            if (typeof window !== 'undefined' && (window as any).gtag) {
-                                                (window as any).gtag('event', 'iletisim_yol_tarifi');
-                                            }
-                                        }}
                                         className="flex-grow flex items-center justify-center gap-2 py-3 bg-charcoal-900 text-white font-bold rounded-xl text-[9px] uppercase tracking-widest hover:bg-black transition-all"
                                     >
                                         YOL TARİFİ
                                     </a>
                                     <a
                                         href="mailto:betaozelservis@gmail.com"
-                                        onClick={() => {
-                                            if (typeof window !== 'undefined' && (window as any).gtag) {
-                                                (window as any).gtag('event', 'iletisim_eposta');
-                                            }
-                                        }}
                                         className="flex-grow flex items-center justify-center gap-2 py-3 bg-gray-50 text-gray-900 font-bold rounded-xl text-[9px] uppercase tracking-widest hover:bg-gray-100 transition-all"
                                     >
                                         E-POSTA

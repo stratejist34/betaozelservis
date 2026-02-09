@@ -6,6 +6,7 @@ import Image from 'next/image';
 import parse, { domToReact, HTMLReactParserOptions, Element } from 'html-react-parser';
 import { cn } from '@/lib/utils';
 import { X, Maximize2 } from 'lucide-react';
+import MidContentCTA from './MidContentCTA';
 
 interface RichContentProps {
     content: string;
@@ -80,6 +81,22 @@ export default function RichContent({ content, className }: RichContentProps) {
                             </table>
                         </div>
                     );
+                }
+
+                // 4. Mid Content CTA Injection (After 2nd Paragraph)
+                if (domNode.name === 'p' && (domNode as any).parent?.children) {
+                    const parentChildren = (domNode as any).parent.children.filter((c: any) => c.type === 'tag' && c.name === 'p');
+                    const index = parentChildren.indexOf(domNode);
+                    if (index === 1) { // After 2nd paragraph
+                        return (
+                            <>
+                                <p className="mb-4 text-gray-600 leading-relaxed font-medium">
+                                    {domToReact(domNode.children as any, options)}
+                                </p>
+                                <MidContentCTA />
+                            </>
+                        );
+                    }
                 }
             }
         }

@@ -3,7 +3,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BatteryHero from '@/components/BatteryHero';
 import BatteryQuickSelector from '@/components/BatteryQuickSelector';
-import StickyBatteryCTA from '@/components/StickyBatteryCTA';
 import Image from 'next/image';
 import { MessageCircle, CheckCircle2, AlertCircle, ChevronDown, Phone } from 'lucide-react';
 import { Suspense } from 'react';
@@ -265,7 +264,7 @@ export default async function AkulerPage(props: {
                 </div>
             </section>
 
-            <StickyBatteryCTA />
+
             <Footer />
         </main >
     );

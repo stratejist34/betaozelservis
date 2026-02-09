@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, List } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { trackWhatsappClick } from '@/lib/analytics';
+import { useServiceArea } from '@/context/ServiceAreaContext';
 
 interface TocItem {
     id: string;
@@ -18,6 +20,14 @@ interface TableOfContentsProps {
 export default function TableOfContents({ items, variant = 'all' }: TableOfContentsProps) {
     const [activeId, setActiveId] = useState<string>('');
     const [isOpen, setIsOpen] = useState(false);
+    const { verifyAndAction } = useServiceArea();
+
+    const handleWhatsappClick = () => {
+        verifyAndAction(() => {
+            trackWhatsappClick({ source: 'toc_sidebar', page_type: 'blog' });
+            window.open('https://wa.me/905332081400?text=Blog yazısı üzerinden fiyat teklifi almak istiyorum.', '_blank');
+        });
+    };
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -123,13 +133,11 @@ export default function TableOfContents({ items, variant = 'all' }: TableOfConte
 
                         {/* Sidebar Mini CTA */}
                         <div className="pt-6 border-t border-gray-50">
-                            <a
-                                href="https://wa.me/905332081400?text=Blog yazısı üzerinden fiyat teklifi almak istiyorum."
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group flex items-center justify-between p-4 bg-brand-default text-white rounded-2xl shadow-lg shadow-brand-default/20 transition-all hover:bg-brand-hover hover:-translate-y-1 active:scale-95"
+                            <button
+                                onClick={handleWhatsappClick}
+                                className="w-full group flex items-center justify-between p-4 bg-brand-default text-white rounded-2xl shadow-lg shadow-brand-default/20 transition-all hover:bg-brand-hover hover:-translate-y-1 active:scale-95"
                             >
-                                <div className="space-y-0.5">
+                                <div className="space-y-0.5 text-left">
                                     <span className="block text-[10px] font-black uppercase tracking-[0.1em] opacity-80">
                                         Fiyatları
                                     </span>
@@ -140,7 +148,7 @@ export default function TableOfContents({ items, variant = 'all' }: TableOfConte
                                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
                                     <ChevronDown className="w-4 h-4 -rotate-90" />
                                 </div>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </aside>

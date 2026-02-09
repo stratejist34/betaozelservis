@@ -4,6 +4,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { HelpCircle, ChevronRight, Phone, MessageCircle, FlipHorizontal as Photo, CheckCircle2, AlertCircle, Truck, ShieldCheck, Zap } from 'lucide-react';
 import Image from 'next/image';
+import { trackPhoneClick, trackWhatsappClick } from '@/lib/analytics';
+
+import { useServiceArea } from '@/context/ServiceAreaContext';
 
 declare global {
     interface Window {
@@ -17,6 +20,7 @@ export default function BatteryQuickSelector({ showTrustBadges = false }: { show
     const [selection, setSelection] = useState<string | null>(searchParams.get('startStop'));
     const [showHelp, setShowHelp] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+    const { verifyAndAction } = useServiceArea();
 
     const helpSteps = [
         { icon: '仪表盘', text: "Gösterge panelinde 'A' içinde ok simgesi varsa: Start-Stop" },
@@ -37,7 +41,6 @@ export default function BatteryQuickSelector({ showTrustBadges = false }: { show
             setSelection(currentSelection);
         }
     }, [searchParams]);
-
 
     const handleSelection = (id: string) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -81,6 +84,20 @@ export default function BatteryQuickSelector({ showTrustBadges = false }: { show
         }
 
         return `https://wa.me/905332081400?text=${encodeURIComponent(message)}`;
+    };
+
+    const handlePhoneClick = () => {
+        verifyAndAction(() => {
+            trackPhoneClick({ source: 'hero', page_type: 'home' });
+            window.location.href = 'tel:+905332081400';
+        });
+    };
+
+    const handleWhatsappClick = (type: 'general' | 'photo' | 'chassis') => {
+        verifyAndAction(() => {
+            trackWhatsappClick({ source: 'hero', page_type: 'home', label: type });
+            window.open(getWhatsAppUrl(type), '_blank');
+        });
     };
 
     return (
@@ -162,9 +179,8 @@ export default function BatteryQuickSelector({ showTrustBadges = false }: { show
                         </div>
 
                         {/* Primary Action Button - FULL WIDTH & THUMB ZONE */}
-                        <a
-                            href="tel:+905332081400"
-                            onClick={() => trackEvent('aku_teyit_ara')}
+                        <button
+                            onClick={handlePhoneClick}
                             className="flex items-center justify-center gap-4 p-6 sm:p-10 bg-brand-default hover:bg-brand-dark rounded-2xl sm:rounded-[4rem] transition-all group/btn shadow-[0_20px_60px_rgba(198,31,58,0.3)] mb-8 w-full"
                         >
                             <Phone className="w-8 h-8 sm:w-11 sm:h-11 text-white animate-pulse" />
@@ -176,14 +192,12 @@ export default function BatteryQuickSelector({ showTrustBadges = false }: { show
                                 </p>
                                 <p className="text-[11px] sm:text-[13px] text-white/90 font-medium">Ustaya bağlanın, hangi akü gerektiği netleşsin.</p>
                             </div>
-                        </a>
+                        </button>
 
                         {/* Secondary Actions - Restored Grid */}
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-10 w-full relative z-10">
-                            <a
-                                href={getWhatsAppUrl('photo')}
-                                target="_blank"
-                                onClick={() => trackEvent('aku_etiket_foto')}
+                            <button
+                                onClick={() => handleWhatsappClick('photo')}
                                 className="flex items-center gap-3 px-5 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-2xl text-white/80 hover:text-brand-default hover:bg-white/10 hover:border-brand-default/30 transition-all group/link"
                             >
                                 <Photo className="w-4 h-4 sm:w-5 sm:h-5 text-brand-default shrink-0" />
@@ -191,11 +205,9 @@ export default function BatteryQuickSelector({ showTrustBadges = false }: { show
                                     <span className="text-[12px] sm:text-[13px] font-black block leading-tight mb-0.5 truncate uppercase">Fotoğraf Gönder</span>
                                     <span className="text-[10px] sm:text-[11px] text-charcoal-300 block font-medium leading-none truncate">Etiketi çekin.</span>
                                 </div>
-                            </a>
-                            <a
-                                href={getWhatsAppUrl('general')}
-                                target="_blank"
-                                onClick={() => trackEvent('aku_genel_whatsapp') /* Extra context for tracking */}
+                            </button>
+                            <button
+                                onClick={() => handleWhatsappClick('general')}
                                 className="flex items-center gap-3 px-5 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-2xl text-white/80 hover:text-brand-default hover:bg-white/10 hover:border-brand-default/30 transition-all group/link"
                             >
                                 <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-brand-default shrink-0" />
@@ -203,11 +215,9 @@ export default function BatteryQuickSelector({ showTrustBadges = false }: { show
                                     <span className="text-[12px] sm:text-[13px] font-black block leading-tight mb-0.5 truncate uppercase">WhatsApp'tan Yaz</span>
                                     <span className="text-[10px] sm:text-[11px] text-charcoal-300 block font-medium leading-none truncate">Hızlı akü teyidi.</span>
                                 </div>
-                            </a>
-                            <a
-                                href={getWhatsAppUrl('chassis')}
-                                target="_blank"
-                                onClick={() => trackEvent('aku_sasi_sorgu')}
+                            </button>
+                            <button
+                                onClick={() => handleWhatsappClick('chassis')}
                                 className="flex items-center gap-3 px-5 py-3 sm:py-4 bg-white/5 border border-white/10 rounded-2xl text-white/80 hover:text-brand-default hover:bg-white/10 hover:border-brand-default/30 transition-all group/link"
                             >
                                 <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-brand-default shrink-0" />
@@ -215,7 +225,7 @@ export default function BatteryQuickSelector({ showTrustBadges = false }: { show
                                     <span className="text-[12px] sm:text-[13px] font-black block leading-tight mb-0.5 truncate uppercase">Şasi No İle Sorgula</span>
                                     <span className="text-[10px] sm:text-[11px] text-charcoal-300 block font-medium leading-none truncate">(17 Karakter)</span>
                                 </div>
-                            </a>
+                            </button>
                         </div>
 
                         {showTrustBadges && (
