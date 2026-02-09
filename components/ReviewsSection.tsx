@@ -72,7 +72,7 @@ export default function ReviewsSection() {
                                 <Star key={i} className="w-3 h-3 fill-brand-default text-brand-default" />
                             ))}
                         </div>
-                        <span className="text-[10px] font-bold text-charcoal-300 tracking-[0.2em] uppercase">42 Yorum // 4.5 Yıldız</span>
+                        <span className="text-[10px] font-bold text-charcoal-300 tracking-[0.2em] uppercase">50+ Yorum // 4.5 Yıldız</span>
                     </div>
 
                     <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tighter mb-6 uppercase">

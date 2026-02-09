@@ -85,8 +85,8 @@ export default function HeroSection() {
                             </div>
                             <div className="h-3 w-px bg-white/20" />
                             <div className="flex flex-col leading-none">
-                                <span className="text-white font-bold text-[12px] tracking-wide">4.9 Google</span>
-                                <span className="text-[#9CA3AF] text-[9px] font-medium mt-0.5">250+ Gerçek Yorum</span>
+                                <span className="text-white font-bold text-[12px] tracking-wide">4.5 Google</span>
+                                <span className="text-[#9CA3AF] text-[9px] font-medium mt-0.5">50+ Gerçek Yorum</span>
                             </div>
                         </div>
 
