@@ -15,7 +15,7 @@ export default function ScientificCTA({ variant = 'inline' }: ScientificCTAProps
     const { verifyAndAction } = useServiceArea();
 
     const handleAction = (action: 'phone' | 'whatsapp') => {
-        verifyAndAction(() => {
+        verifyAndAction(action, () => {
             if (action === 'phone') {
                 trackPhoneClick({ source: 'blog_mid', page_type: 'blog' });
                 window.location.href = 'tel:+905332081400';

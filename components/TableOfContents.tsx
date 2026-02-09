@@ -23,7 +23,7 @@ export default function TableOfContents({ items, variant = 'all' }: TableOfConte
     const { verifyAndAction } = useServiceArea();
 
     const handleWhatsappClick = () => {
-        verifyAndAction(() => {
+        verifyAndAction('whatsapp', () => {
             trackWhatsappClick({ source: 'toc_sidebar', page_type: 'blog' });
             window.open('https://wa.me/905332081400?text=Blog yazısı üzerinden fiyat teklifi almak istiyorum.', '_blank');
         });

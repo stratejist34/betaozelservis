@@ -12,23 +12,23 @@ export default function ContactContent() {
     const { verifyAndAction } = useServiceArea();
 
     const handleServiceCall = () => {
-        verifyAndAction(() => {
-            trackPhoneClick({ source: 'contact', page_type: 'contact' });
+        verifyAndAction('phone', () => {
+            trackPhoneClick({ source: 'contact_page', page_type: 'contact', label: 'service' });
             window.location.href = 'tel:+905332081400';
         });
     };
 
     const handleLandlineCall = () => {
-        verifyAndAction(() => {
-            trackPhoneClick({ source: 'contact', page_type: 'contact' });
-            window.location.href = 'tel:+902163922259';
+        verifyAndAction('phone', () => {
+            trackPhoneClick({ source: 'contact_page', page_type: 'contact', label: 'landline' });
+            window.location.href = 'tel:+902163943040';
         });
     };
 
     const handleWhatsapp = () => {
-        verifyAndAction(() => {
-            trackWhatsappClick({ source: 'contact', page_type: 'contact' });
-            window.open('https://wa.me/905332081400', '_blank');
+        verifyAndAction('whatsapp', () => {
+            trackWhatsappClick({ source: 'contact_page', page_type: 'contact' });
+            window.open('https://wa.me/905332081400?text=Merhaba, servis randevusu almak istiyorum.', '_blank');
         });
     };
 

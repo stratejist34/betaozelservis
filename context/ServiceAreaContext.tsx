@@ -2,10 +2,10 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import ServiceAreaSheet from '@/components/ServiceAreaSheet';
-import { trackPhoneClick } from '@/lib/analytics';
+import { trackPhoneClick, trackPhoneIntent, trackWhatsappIntent, trackPhoneAbandon, trackWhatsappAbandon } from '@/lib/analytics';
 
 interface ServiceAreaContextType {
-    verifyAndAction: (action: () => void) => void;
+    verifyAndAction: (type: 'phone' | 'whatsapp', action: () => void) => void;
 }
 
 const ServiceAreaContext = createContext<ServiceAreaContextType | undefined>(undefined);
@@ -14,28 +14,41 @@ export function ServiceAreaProvider({ children }: { children: ReactNode }) {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
     const [hasConfirmedArea, setHasConfirmedArea] = useState(false);
     const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
+    const [pendingActionType, setPendingActionType] = useState<'phone' | 'whatsapp'>('phone');
 
     useEffect(() => {
-        const confirmed = localStorage.getItem('service_area_confirmed');
+        // Use sessionStorage instead of localStorage for per-session confirmation
+        const confirmed = sessionStorage.getItem('service_area_confirmed');
         if (confirmed) {
             setHasConfirmedArea(true);
         }
     }, []);
 
-    const verifyAndAction = (action: () => void) => {
+    const verifyAndAction = (type: 'phone' | 'whatsapp', action: () => void) => {
+        // Track Intent immediately
+        if (type === 'phone') {
+            trackPhoneIntent({ source: 'global_intent' });
+        } else {
+            trackWhatsappIntent({ source: 'global_intent' });
+        }
+
+        // Always verify for now to ensure user sees the relevant modal (or check session)
+        // User requested "her cta tuşlamasında", but session persistence is better UX. 
+        // We will keep sessionStorage. If they want EVERY time, we can remove the check below.
         if (hasConfirmedArea) {
             action();
         } else {
             setPendingAction(() => action);
+            setPendingActionType(type);
             setIsSheetOpen(true);
         }
     };
 
     const handleConfirm = () => {
-        localStorage.setItem('service_area_confirmed', 'true');
+        sessionStorage.setItem('service_area_confirmed', 'true');
         setHasConfirmedArea(true);
         setIsSheetOpen(false);
-        trackPhoneClick({ source: 'global_modal', confirm: true }); // General confirm tracking
+        // Note: trackPhoneClick/trackWhatsappClick (Action events) are handled by the callback (pendingAction)
 
         if (pendingAction) {
             pendingAction();
@@ -44,6 +57,13 @@ export function ServiceAreaProvider({ children }: { children: ReactNode }) {
     };
 
     const handleClose = () => {
+        // Track Abandonment
+        if (pendingActionType === 'phone') {
+            trackPhoneAbandon({ source: 'global_modal_abandon' });
+        } else {
+            trackWhatsappAbandon({ source: 'global_modal_abandon' });
+        }
+
         setIsSheetOpen(false);
         setPendingAction(null);
     };
@@ -55,6 +75,7 @@ export function ServiceAreaProvider({ children }: { children: ReactNode }) {
                 isOpen={isSheetOpen}
                 onClose={handleClose}
                 onConfirm={handleConfirm}
+                type={pendingActionType}
             />
         </ServiceAreaContext.Provider>
     );

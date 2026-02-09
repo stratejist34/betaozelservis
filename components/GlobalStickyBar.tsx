@@ -51,17 +51,17 @@ export default function GlobalStickyBar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [lastScrollY]);
 
-    const handlePhoneClick = () => {
-        verifyAndAction(() => {
-            trackPhoneClick({ source: 'sticky', page_type: getPageType() });
+    const handleCall = () => {
+        verifyAndAction('phone', () => {
+            trackPhoneClick({ source: 'sticky_bar', page_type: 'home' });
             window.location.href = 'tel:+905332081400';
         });
     };
 
-    const handleWhatsappClick = () => {
-        verifyAndAction(() => {
-            trackWhatsappClick({ source: 'sticky', page_type: getPageType() });
-            window.open('https://wa.me/905332081400?text=Merhaba,%20servis%20hizmeti%20hakkında%20bilgi%20almak%20istiyorum.', '_blank');
+    const handleWhatsApp = () => {
+        verifyAndAction('whatsapp', () => {
+            trackWhatsappClick({ source: 'sticky_bar', page_type: 'home' });
+            window.open('https://wa.me/905332081400?text=Merhaba, fiyat teklifi almak istiyorum.', '_blank');
         });
     };
 
@@ -86,7 +86,7 @@ export default function GlobalStickyBar() {
 
                         {/* Primary Action - Call (70%) */}
                         <button
-                            onClick={handlePhoneClick}
+                            onClick={handleCall}
                             className="flex-[0.7] h-full bg-[#C4122F] hover:bg-[#a50f27] text-white rounded-[12px] flex items-center justify-center gap-2.5 active:scale-[0.98] transition-transform shadow-lg shadow-red-900/20"
                         >
                             <Phone className="w-5 h-5 fill-current" />
@@ -97,7 +97,7 @@ export default function GlobalStickyBar() {
 
                         {/* Secondary Action - WhatsApp (30%) - SOLID STYLE */}
                         <button
-                            onClick={handleWhatsappClick}
+                            onClick={handleWhatsApp}
                             className="flex-[0.3] h-full bg-[#0EA76B] hover:bg-[#0c8e5b] text-white rounded-[12px] flex items-center justify-center active:scale-[0.98] transition-transform shadow-lg shadow-emerald-900/20"
                         >
                             <MessageCircle className="w-6 h-6" />

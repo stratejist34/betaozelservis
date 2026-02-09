@@ -9,16 +9,16 @@ export default function MidContentCTA() {
     const { verifyAndAction } = useServiceArea();
 
     const handlePhoneClick = () => {
-        verifyAndAction(() => {
+        verifyAndAction('phone', () => {
             trackPhoneClick({ source: 'blog_mid', page_type: 'blog' });
             window.location.href = 'tel:+905332081400';
         });
     };
 
     const handleWhatsappClick = () => {
-        verifyAndAction(() => {
+        verifyAndAction('whatsapp', () => {
             trackWhatsappClick({ source: 'blog_mid', page_type: 'blog' });
-            window.open('https://wa.me/905332081400?text=Merhaba,%20blog%20yazınızı%20okudum,%20fiyat%20almak%20istiyorum.', '_blank');
+            window.open('https://wa.me/905332081400?text=Blog yazısı üzerinden ulaşıyorum, bilgi almak istiyorum.', '_blank');
         });
     };
 

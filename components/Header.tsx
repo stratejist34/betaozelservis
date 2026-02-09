@@ -44,21 +44,21 @@ export default function Header({ isLightPage = false, forceSilver = false }: { i
     }, []);
 
     const handleCall = () => {
-        verifyAndAction(() => {
+        verifyAndAction('phone', () => {
             trackPhoneClick({ source: 'header', page_type: getPageType() });
             window.location.href = 'tel:+905332081400';
         });
     };
 
     const handleWhatsApp = () => {
-        verifyAndAction(() => {
+        verifyAndAction('whatsapp', () => {
             trackWhatsappClick({ source: 'header_mobile_menu', page_type: getPageType() });
             window.open('https://wa.me/905332081400?text=Fiyat teklifi almak istiyorum.', '_blank');
         });
     };
 
     const handleMobileCall = () => {
-        verifyAndAction(() => {
+        verifyAndAction('phone', () => {
             trackPhoneClick({ source: 'header_mobile_menu', page_type: getPageType() });
             window.location.href = 'tel:+905332081400';
         });

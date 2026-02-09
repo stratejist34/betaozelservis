@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Gauge, Shield, Zap, CircleDot, Activity, ArrowRight } from 'lucide-react';
+import { Gauge, Shield, Zap, CircleDot, Activity, ArrowRight, Phone, MessageCircle } from 'lucide-react';
 import { trackPhoneClick, trackWhatsappClick } from '@/lib/analytics';
 
 import { useServiceArea } from '@/context/ServiceAreaContext';
@@ -177,28 +177,24 @@ export default function MaintenancePackages() {
                 {/* 6) FINAL CTA - The Resolution */}
                 <div className="flex flex-col items-center w-full max-w-md mx-auto gap-4">
                     <button
-                        onClick={() => {
-                            verifyAndAction(() => {
-                                trackPhoneClick({ source: 'price_table', page_type: 'service' });
-                                window.location.href = 'tel:+905332081400';
-                            });
-                        }}
-                        className="w-full bg-[#C4122F] hover:bg-[#a50f27] text-white py-5 rounded-[18px] text-xl font-black uppercase tracking-widest shadow-2xl shadow-red-900/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 group"
+                        onClick={() => verifyAndAction('phone', () => {
+                            trackPhoneClick({ source: 'packages', page_type: 'home', label: 'standard_call' });
+                            window.location.href = 'tel:+905332081400';
+                        })}
+                        className="w-full bg-charcoal-800 hover:bg-brand-default text-white py-4 rounded-xl font-bold uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-brand-default/20 flex items-center justify-center gap-2 group"
                     >
-                        HEMEN ARA <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                        <Phone className="w-4 h-4 text-charcoal-400 group-hover:text-white transition-colors" />
+                        Hemen Ara
                     </button>
-
                     <button
-                        onClick={() => {
-                            verifyAndAction(() => {
-                                trackWhatsappClick({ source: 'price_table', page_type: 'service' });
-                                window.open(`https://wa.me/905332081400?text=${encodeURIComponent('Aracım için bakım fiyatı almak istiyorum Marka/Model: ')}`, '_blank');
-                            });
-                        }}
-                        className="w-full bg-[#0EA76B] hover:bg-[#0c8e5b] text-white py-3 rounded-[14px] text-sm font-black uppercase tracking-wider shadow-lg shadow-emerald-900/10 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2"
+                        onClick={() => verifyAndAction('whatsapp', () => {
+                            trackWhatsappClick({ source: 'packages', page_type: 'home', label: 'standard_wa' });
+                            window.open('https://wa.me/905332081400?text=Periyodik bakım paketi hakkında bilgi almak istiyorum.', '_blank');
+                        })}
+                        className="w-full bg-transparent border border-charcoal-700 hover:bg-charcoal-800 text-charcoal-300 hover:text-white py-4 rounded-xl font-bold uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2"
                     >
-                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                        WhatsApp ile Fiyat Al
+                        <MessageCircle className="w-4 h-4" />
+                        WhatsApp
                     </button>
                 </div>
             </div>

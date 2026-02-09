@@ -1,16 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Phone, X, MapPin } from 'lucide-react';
+import { Phone, X, MapPin, MessageCircle } from 'lucide-react';
 import { trackPhoneClick } from '@/lib/analytics';
 
 interface ServiceAreaSheetProps {
     isOpen: boolean;
     onClose: () => void;
     onConfirm: () => void;
+    type?: 'phone' | 'whatsapp';
 }
 
-export default function ServiceAreaSheet({ isOpen, onClose, onConfirm }: ServiceAreaSheetProps) {
+export default function ServiceAreaSheet({ isOpen, onClose, onConfirm, type = 'phone' }: ServiceAreaSheetProps) {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -75,10 +76,19 @@ export default function ServiceAreaSheet({ isOpen, onClose, onConfirm }: Service
                                     onConfirm();
                                     trackPhoneClick('bottom_sheet_confirm');
                                 }}
-                                className="w-full h-14 bg-brand-default hover:bg-brand-hover text-white rounded-xl font-bold text-[15px] shadow-lg shadow-brand-default/20 active:scale-[0.98] transition-transform flex items-center justify-center gap-2"
+                                className={`w-full h-14 ${type === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#128c7e]' : 'bg-brand-default hover:bg-brand-hover'} text-white rounded-xl font-bold text-[15px] shadow-lg shadow-brand-default/20 active:scale-[0.98] transition-transform flex items-center justify-center gap-2`}
                             >
-                                <Phone className="w-5 h-5 fill-current" />
-                                Bölgedeyim, Hemen Ara
+                                {type === 'whatsapp' ? (
+                                    <>
+                                        <MessageCircle className="w-5 h-5 fill-current" />
+                                        Bölgedeyim, WhatsApp'tan Yaz
+                                    </>
+                                ) : (
+                                    <>
+                                        <Phone className="w-5 h-5 fill-current" />
+                                        Bölgedeyim, Hemen Ara
+                                    </>
+                                )}
                             </button>
 
                             <button

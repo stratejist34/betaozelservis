@@ -87,14 +87,14 @@ export default function BatteryQuickSelector({ showTrustBadges = false }: { show
     };
 
     const handlePhoneClick = () => {
-        verifyAndAction(() => {
+        verifyAndAction('phone', () => {
             trackPhoneClick({ source: 'hero', page_type: 'home' });
             window.location.href = 'tel:+905332081400';
         });
     };
 
     const handleWhatsappClick = (type: 'general' | 'photo' | 'chassis') => {
-        verifyAndAction(() => {
+        verifyAndAction('whatsapp', () => {
             trackWhatsappClick({ source: 'hero', page_type: 'home', label: type });
             window.open(getWhatsAppUrl(type), '_blank');
         });

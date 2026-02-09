@@ -1,6 +1,6 @@
 'use client';
 
-import { ShieldCheck, Truck, Zap, Phone } from 'lucide-react';
+import { ShieldCheck, Truck, Zap, Phone, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 import { trackPhoneClick, trackWhatsappClick } from '@/lib/analytics';
 
@@ -46,27 +46,24 @@ export default function BatteryHero({ compact = false }: { compact?: boolean }) 
                 {!compact && (
                     <div className="mt-10 flex flex-col sm:flex-row gap-6 items-center justify-center md:justify-start">
                         <button
-                            onClick={() => {
-                                verifyAndAction(() => {
-                                    trackPhoneClick({ source: 'hero', page_type: 'service' });
-                                    window.location.href = 'tel:+905332081400';
-                                });
-                            }}
-                            className="bg-[#C4122F] hover:bg-[#a50f27] text-white px-8 py-4 rounded-xl text-base font-black uppercase tracking-widest transition-all hover:scale-[1.05] active:scale-95 shadow-xl shadow-red-900/20 flex items-center gap-3 group"
+                            onClick={() => verifyAndAction('phone', () => {
+                                trackPhoneClick({ source: 'battery_hero', page_type: 'battery' });
+                                window.location.href = 'tel:+905332081400';
+                            })}
+                            className="group bg-brand-default hover:bg-brand-hover text-white px-8 h-14 rounded-xl flex items-center gap-3 font-bold transition-all shadow-[0_0_20px_rgba(220,38,38,0.3)] hover:shadow-[0_0_30px_rgba(220,38,38,0.5)] active:scale-95"
                         >
-                            <Phone className="w-5 h-5 fill-current" />
-                            HEMEN ARA
+                            <Phone className="w-5 h-5 animate-pulse" />
+                            <span>Hemen Ara</span>
                         </button>
                         <button
-                            onClick={() => {
-                                verifyAndAction(() => {
-                                    trackWhatsappClick({ source: 'hero', page_type: 'service' });
-                                    window.open('https://wa.me/905332081400?text=Akü%20fiyatı%20almak%20istiyorum.', '_blank');
-                                });
-                            }}
-                            className="text-white/80 hover:text-white text-sm font-bold border-b border-white/20 hover:border-white transition-all pb-0.5"
+                            onClick={() => verifyAndAction('whatsapp', () => {
+                                trackWhatsappClick({ source: 'battery_hero', page_type: 'battery' });
+                                window.open('https://wa.me/905332081400?text=Akü değişimi için fiyat almak istiyorum.', '_blank');
+                            })}
+                            className="group bg-white/10 hover:bg-white/20 text-white px-8 h-14 rounded-xl flex items-center gap-3 font-bold transition-all backdrop-blur-sm border border-white/10 active:scale-95"
                         >
-                            WhatsApp ile yazmak ister misiniz?
+                            <MessageCircle className="w-5 h-5" />
+                            <span>WhatsApp</span>
                         </button>
                     </div>
                 )}

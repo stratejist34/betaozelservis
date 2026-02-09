@@ -115,7 +115,7 @@ export default function HeroSection() {
                     {/* 3. Primary CTA - MINIMIZED & CLEAN */}
                     <button
                         onClick={() => {
-                            verifyAndAction(() => {
+                            verifyAndAction('phone', () => {
                                 trackPhoneClick({ source: 'hero', page_type: 'home' });
                                 window.location.href = 'tel:+905332081400';
                             });
@@ -168,7 +168,7 @@ export default function HeroSection() {
                     <div className="hidden sm:flex flex-col sm:flex-row gap-6 items-center justify-start">
                         <button
                             onClick={() => {
-                                verifyAndAction(() => {
+                                verifyAndAction('phone', () => {
                                     trackPhoneClick({ source: 'hero', page_type: 'home' });
                                     window.location.href = 'tel:+905332081400';
                                 });
@@ -180,7 +180,7 @@ export default function HeroSection() {
                         </button>
                         <button
                             onClick={() => {
-                                verifyAndAction(() => {
+                                verifyAndAction('whatsapp', () => {
                                     trackWhatsappClick({ source: 'hero', page_type: 'home' });
                                     window.open('https://wa.me/905332081400?text=Randevu almak istiyorum.', '_blank');
                                 });

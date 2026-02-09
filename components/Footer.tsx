@@ -22,16 +22,16 @@ export default function Footer() {
         return 'other';
     };
 
-    const handleWhatsapp = () => {
-        verifyAndAction(() => {
-            trackWhatsappClick({ source: 'footer', page_type: getPageType() });
+    const handleWhatsappAppointment = () => {
+        verifyAndAction('whatsapp', () => {
+            trackWhatsappClick({ source: 'footer_appointment', page_type: getPageType() });
             window.open('https://wa.me/905332081400?text=Randevu talebi oluşturmak istiyorum.', '_blank');
         });
     };
 
-    const handleCall = () => {
-        verifyAndAction(() => {
-            trackPhoneClick({ source: 'footer', page_type: getPageType() });
+    const handlePhoneClick = () => {
+        verifyAndAction('phone', () => {
+            trackPhoneClick({ source: 'footer_contact', page_type: getPageType() });
             window.location.href = 'tel:+905332081400';
         });
     };
@@ -45,7 +45,7 @@ export default function Footer() {
                 {/* Tertiary CTA - Randevu Talebi Oluştur */}
                 <div className="mb-20 text-center">
                     <button
-                        onClick={handleWhatsapp}
+                        onClick={handleWhatsappAppointment}
                         className="inline-flex items-center gap-4 bg-charcoal-800/40 hover:bg-brand-default border border-charcoal-600 hover:border-brand-default px-12 py-5 rounded-2xl text-sm font-black uppercase tracking-[0.3em] text-white transition-all group scale-95 hover:scale-100"
                     >
                         Randevu Talebi Oluştur
@@ -111,7 +111,7 @@ export default function Footer() {
                                 </div>
                                 <div className="text-sm">
                                     <p className="text-[10px] uppercase font-black text-charcoal-500 tracking-widest">Acil Yol Yardım</p>
-                                    <button onClick={handleCall} className="text-charcoal-50 font-black text-lg hover:text-brand-default transition-all">0533 208 14 00</button>
+                                    <button onClick={handlePhoneClick} className="text-charcoal-50 font-black text-lg hover:text-brand-default transition-all">0533 208 14 00</button>
                                 </div>
                             </li>
                             <li className="flex items-center gap-4">

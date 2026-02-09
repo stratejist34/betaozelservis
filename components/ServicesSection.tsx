@@ -69,7 +69,7 @@ function ServiceCard({ service }: { service: any }) {
     const { verifyAndAction } = useServiceArea();
 
     const handleWhatsappClick = () => {
-        verifyAndAction(() => {
+        verifyAndAction('whatsapp', () => {
             trackWhatsappClick({ source: 'services_section', page_type: 'home' });
             window.open(`https://wa.me/905332081400?text=${encodeURIComponent(`${service.title} hakkında randevu almak istiyorum.`)}`, '_blank');
         });
