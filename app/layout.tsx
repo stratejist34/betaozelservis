@@ -70,15 +70,16 @@ export default function RootLayout({
         {/* GA4 and Google Ads */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
-        <Script id="google-analytics" strategy="lazyOnload">
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
+
             gtag('config', '${GA_ID}');
-            gtag('config', '${GADS_ID}');
+            gtag('config', 'AW-17452256740');
           `}
         </Script>
 
