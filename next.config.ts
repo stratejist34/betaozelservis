@@ -54,6 +54,18 @@ const nextConfig: NextConfig = {
         destination: '/blog',
         permanent: true,
       },
+      // 4. Eski WordPress Etiketleri: /Etiket/ -> /blog
+      {
+        source: '/Etiket/:slug',
+        destination: '/blog',
+        permanent: true,
+      },
+      // 5. Eski WordPress Kategorileri: /Kategori/ -> /blog/marka/
+      {
+        source: '/Kategori/:slug',
+        destination: '/blog/marka/:slug',
+        permanent: true,
+      },
     ]
   },
 };
